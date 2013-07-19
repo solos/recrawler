@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding = utf-8
+
+QDB_USER = ''
+QDB_PASSWORD = ''
+QDB_HOST = 'localhost'
+QDB_DB = ''
+QDB_CHARSET = 'UTF8'
+
+DB_USER = ''
+DB_PASSWORD = ''
+DB_HOST = 'localhost'
+DB_DB = ''
+DB_CHARSET = 'UTF8'
+
+QUEUE = 'queue'
