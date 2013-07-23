@@ -110,6 +110,40 @@ def push(url, detail=True):
     return True
 
 
+def insert_db(site_id, language, url_hash, title, url, content, html):
+
+    query = PySQLPool.getNewQuery(connection)
+    query.Query('select url_hash from news_site_html where url_hash = %s;',
+                url_hash)
+    if query.record:
+        return False
+    else:
+        query.Query('insert into news_site_html'
+                    '(site_id, language, url_hash, title, url, content, html) '
+                    'values(%s, %s, %s, %s, %s, %s, %s);',
+                    (site_id, language, url_hash, title, url, content, html))
+        query.Pool.Commit()
+        return True
+
+
+def get_site_info(domainhash):
+
+    #site_info id domain_hash language name domain url
+    query = PySQLPool.getNewQuery(connection)
+    query.Query('select id, language from news_sites where domainhash = %s;',
+                domainhash)
+    if query.record:
+        record = query.record[0]
+        site_id, language = record['id'], record['language']
+        return (site_id, language)
+    else:
+        return (None, None)
+
+
 if __name__ == '__main__':
-    #map(submit_job, urls)
-    pass
+    sites = json.loads(open('sites.json', 'r').read())
+    urls = [site['url'] for site in sites]
+    map(submit_job, urls)
+    #pass
+    #domainhash = 1475423385534659117
+    #print get_site_info(domainhash)

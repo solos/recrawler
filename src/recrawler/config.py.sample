@@ -14,3 +14,7 @@ DB_DB = ''
 DB_CHARSET = 'UTF8'
 
 QUEUE = 'queue'
+
+LOG_NAME = 'news_site'
+BASIC_LOG_PATH = './log/'
+LOG_FILENAME = 'news_site'
