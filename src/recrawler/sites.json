@@ -1,0 +1,1802 @@
+[
+    {
+        "id": "1", 
+        "name": "数字化企业网", 
+        "url": "http://e-works.net.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "2", 
+        "name": "至顶网", 
+        "url": "http://www.zdnet.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "3", 
+        "name": "联合科技", 
+        "url": "http://www.cust.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "4", 
+        "name": "CNET科技咨询网", 
+        "url": "http://www.cnetnews.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "5", 
+        "name": "时间科普网站", 
+        "url": "http://www.time.ac.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "6", 
+        "name": "实验室社区", 
+        "url": "http://www.lab127.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "7", 
+        "name": "维普资讯网", 
+        "url": "http://www.cqvip.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "8", 
+        "name": "学生科技网", 
+        "url": "http://www.student.gov.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "9", 
+        "name": "中国视讯论坛", 
+        "url": "http://www.vctech.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "10", 
+        "name": "中国公众科技网", 
+        "url": "http://www.cpst.net.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "11", 
+        "name": "中国科普博览", 
+        "url": "http://www.kepu.net.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "12", 
+        "name": "爱活网 Evolife", 
+        "url": "http://www.evolife.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "13", 
+        "name": "北京科普之窗", 
+        "url": "http://www.bjkp.gov.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "14", 
+        "name": "大中华印艺网", 
+        "url": "http://www.cgan.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "15", 
+        "name": "分析测试百科网", 
+        "url": "http://www.antpedia.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "16", 
+        "name": "广东金科网", 
+        "url": "http://www.sti.gd.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "17", 
+        "name": "技术在线", 
+        "url": "http://china.nikkeibp.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "18", 
+        "name": "科学网", 
+        "url": "http://www.sciencenet.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "19", 
+        "name": "科技论坛", 
+        "url": "http://www.tech-domain.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "20", 
+        "name": "科技日报", 
+        "url": "http://www.stdaily.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "21", 
+        "name": "资源网", 
+        "url": "http://www.lrn.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "22", 
+        "name": "中国产业信息培训网", 
+        "url": "http://www.ciitn.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "23", 
+        "name": "中国科学技术计算机网络信息中心", 
+        "url": "http://www.cnic.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "24", 
+        "name": "广播爱好者", 
+        "url": "http://www.leowood.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "25", 
+        "name": "计世资讯", 
+        "url": "http://www.ccwresearch.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "26", 
+        "name": "上方网", 
+        "url": "http://www.spforum.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "27", 
+        "name": "通信世界网", 
+        "url": "http://www.cww.net.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "28", 
+        "name": "通信论坛", 
+        "url": "http://www.gsmhosting.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "29", 
+        "name": "通信产业网", 
+        "url": "http://www.ccidcom.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "30", 
+        "name": "泰尔网", 
+        "url": "http://www.catr.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "31", 
+        "name": "网络通讯服务网", 
+        "url": "http://www.openvoip.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "32", 
+        "name": "移动通信在线", 
+        "url": "http://www.mc21st.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "33", 
+        "name": "中国信息产业网", 
+        "url": "http://www.cnii.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "34", 
+        "name": "中国无线设备网", 
+        "url": "http://www.wxsbw.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "35", 
+        "name": "电信设备进网管理", 
+        "url": "http://www.tenaa.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "36", 
+        "name": "飞象网", 
+        "url": "http://www.cctime.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "37", 
+        "name": "全国地质资料馆", 
+        "url": "http://www.ngac.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "38", 
+        "name": "中国科学院工程地质力学重点实验室", 
+        "url": "http://www.enggeo.org/cn/index.html", 
+        "language": "1"
+    }, 
+    {
+        "id": "39", 
+        "name": "中国勘察测绘网", 
+        "url": "http://www.cnkcch.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "40", 
+        "name": " 晶星晶体结构网", 
+        "url": "http://www.crystalstar.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "41", 
+        "name": "勘察设计网", 
+        "url": "http://www.kcsjw.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "42", 
+        "name": "绿谷生物网", 
+        "url": "http://www.ibioo.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "43", 
+        "name": "螺旋网", 
+        "url": "http://www.helixnet.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "44", 
+        "name": "生命经纬", 
+        "url": "http://www.biox.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "45", 
+        "name": "生物秀", 
+        "url": "http://www.bbioo.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "46", 
+        "name": "生物软件网", 
+        "url": "http://www.bio-soft.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "47", 
+        "name": "生物搜", 
+        "url": "http://www.biosou.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "48", 
+        "name": "生物通", 
+        "url": "http://www.ebiotrade.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "49", 
+        "name": "生物百花园", 
+        "url": "http://www.biobox.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "50", 
+        "name": "生物的分类", 
+        "url": "http://www.bio-equip.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "51", 
+        "name": "生物导航网", 
+        "url": "http://www.bioguider.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "52", 
+        "name": "生技网", 
+        "url": "http://www.biogo.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "53", 
+        "name": "中美科技网", 
+        "url": "http://www.uscnlife.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "54", 
+        "name": "中国医学生物信息网", 
+        "url": "http://cmbi.bjmu.edu.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "55", 
+        "name": "中国国家生物安全信息交换所", 
+        "url": "http://www.biosafety.gov.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "56", 
+        "name": "《中国实验室》", 
+        "url": "http://www.chinalab.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "57", 
+        "name": "百奥知网", 
+        "url": "http://www.bioknow.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "58", 
+        "name": "基金时代", 
+        "url": "http://ggene.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "59", 
+        "name": "ACTAPS生理学报", 
+        "url": "http://www.actaps.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "60", 
+        "name": "《植物生态学报》", 
+        "url": "http://www.plant-ecology.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "61", 
+        "name": "阿拉善SEE生态协会网", 
+        "url": "http://www.see.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "62", 
+        "name": "细胞生物学在线", 
+        "url": "http://www.cella.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "63", 
+        "name": "中国遗传网", 
+        "url": "http://www.chinagene.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "64", 
+        "name": "中国发明专利技术信息网", 
+        "url": "http://www.1st.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "65", 
+        "name": "多新奇", 
+        "url": "http://www.duoxinqi.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "66", 
+        "name": "万古花卉论坛", 
+        "url": "http://www.whgbbs.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "67", 
+        "name": "陌上花花卉论坛", 
+        "url": "http://www.mshua.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "68", 
+        "name": "植物学通报", 
+        "url": "http://www.chinbullbotany.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "69", 
+        "name": "果花交流中心", 
+        "url": "http://www.igoho.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "70", 
+        "name": "昆虫视界", 
+        "url": "http://www.yellowman.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "71", 
+        "name": "昆虫频道", 
+        "url": "http://www.taiming.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "72", 
+        "name": "中国昆虫网", 
+        "url": "http://www.cnkcw.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "73", 
+        "name": "百科知识", 
+        "url": "http://www.baikezs.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "74", 
+        "name": "科学中国人", 
+        "url": "http://www.scichi.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "75", 
+        "name": "科学画报", 
+        "url": "http://www.kxhb.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "76", 
+        "name": "科幻世界", 
+        "url": "http://www.sfw-cd.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "77", 
+        "name": "科技新时代·Popular Science", 
+        "url": "http://www.popscichina.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "78", 
+        "name": "科技经济市场", 
+        "url": "http://www.kjjjsc.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "79", 
+        "name": "博趣", 
+        "url": "http://www.hobbypress.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "80", 
+        "name": "大科科技杂志", 
+        "url": "http://www.dkj1997.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "81", 
+        "name": "飞达光学网", 
+        "url": "http://www.33tt.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "82", 
+        "name": "中国数学在线", 
+        "url": "http://www.mathfan.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "83", 
+        "name": "中国数学会", 
+        "url": "http://www.cms.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "84", 
+        "name": "中国数学建模网", 
+        "url": "http://www.shumo.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "85", 
+        "name": "中国数学资源网", 
+        "url": "http://www.mathrs.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "86", 
+        "name": "水利水电资源网", 
+        "url": "http://www.cadwater.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "87", 
+        "name": "水利工程网", 
+        "url": "http://www.shuigong.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "88", 
+        "name": "水世界网", 
+        "url": "http://www.ssj365.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "89", 
+        "name": "水圈网", 
+        "url": "http://www.waterquan.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "90", 
+        "name": "水网", 
+        "url": "http://www.shui.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "91", 
+        "name": "水资讯网", 
+        "url": "http://www.cjk3d.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "92", 
+        "name": "中国水星", 
+        "url": "http://www.waterchina.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "93", 
+        "name": "中国水势网", 
+        "url": "http://www.watersite.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "94", 
+        "name": "中国水网", 
+        "url": "http://www.h2o-china.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "95", 
+        "name": "中国水处理设备网", 
+        "url": "http://www.wateruu.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "96", 
+        "name": "中国水工业", 
+        "url": "http://www.c-water.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "97", 
+        "name": "中国水工业网", 
+        "url": "http://www.shuigongye.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "98", 
+        "name": "核技术网摘", 
+        "url": "http://tnst.me", 
+        "language": "1"
+    }, 
+    {
+        "id": "99", 
+        "name": "流体中文网", 
+        "url": "http://www.cfluid.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "100", 
+        "name": "物理学报", 
+        "url": "http://wulixb.iphy.ac.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "101", 
+        "name": "大学力学论坛", 
+        "url": "http://www.xuelixue.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "102", 
+        "name": "中国光学网", 
+        "url": "http://www.lightfc.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "103", 
+        "name": "清华大学建筑声学网", 
+        "url": "http://www.abcd.edu.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "104", 
+        "name": "声学楼", 
+        "url": "http://www.nju520.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "105", 
+        "name": "北京电视电声杂志社", 
+        "url": "http://www.tvea.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "106", 
+        "name": "科技论坛", 
+        "url": "http://www.tech-domain.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "107", 
+        "name": "中国民用航空总局", 
+        "url": "http://www.caac.gov.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "108", 
+        "name": "天文学报", 
+        "url": "http://www.twxb.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "109", 
+        "name": "星星天堂", 
+        "url": "http://www.starparadise.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "110", 
+        "name": "星友空间站", 
+        "url": "http://www.skylook.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "111", 
+        "name": "热处理技术讨论", 
+        "url": "http://www.rclbbs.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "112", 
+        "name": "数控工作室", 
+        "url": "http://www.busnc.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "113", 
+        "name": "中国机械论坛", 
+        "url": "http://www.jixieluntan.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "114", 
+        "name": "泵阀技术论坛", 
+        "url": "http://www.pumpvip.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "115", 
+        "name": "中国摩擦学信息网", 
+        "url": "http://www.cntribo.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "116", 
+        "name": "摩擦学学报", 
+        "url": "http://www.tribology.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "117", 
+        "name": "蓝天CAD论坛", 
+        "url": "http://www.cncad.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "118", 
+        "name": "中国模具CAD论坛", 
+        "url": "http://www.mujucad.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "119", 
+        "name": "中国机械CAD论坛", 
+        "url": "http://www.jxcad.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "120", 
+        "name": "中华工程师网", 
+        "url": "http://www.51gcs.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "121", 
+        "name": "精英谷机械论坛", 
+        "url": "http://www.ourjx.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "122", 
+        "name": "系统工程理论与实践", 
+        "url": "http://www.sysengi.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "123", 
+        "name": "控制工程网", 
+        "url": "http://www.cechina.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "124", 
+        "name": "机器人天空", 
+        "url": "http://www.robotsky.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "125", 
+        "name": "机器人智能网", 
+        "url": "http://www.robotain.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "126", 
+        "name": "机器人爱好者", 
+        "url": "http://www.roboticfan.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "127", 
+        "name": "机器人技术与应用", 
+        "url": "http://www.rta.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "128", 
+        "name": "湿地中国", 
+        "url": "http://www.shidi.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "129", 
+        "name": "杂交水稻网", 
+        "url": "http://www.agrisci.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "130", 
+        "name": "中国棉花网", 
+        "url": "http://www.cncotton.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "131", 
+        "name": "中国水稻信息网", 
+        "url": "http://www.chinariceinfo.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "132", 
+        "name": "中国农业网", 
+        "url": "http://www.agronet.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "133", 
+        "name": "中国农业科技信息网", 
+        "url": "http://www.cast.net.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "134", 
+        "name": "中国作物学会", 
+        "url": "http://www.chinacrops.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "135", 
+        "name": "中国林业新闻网", 
+        "url": "http://www.greentimes.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "136", 
+        "name": "中国林业信息网", 
+        "url": "http://www.lknet.ac.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "137", 
+        "name": "林产工业", 
+        "url": "http://www.cfpi.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "138", 
+        "name": "中国渔业装备与工程科技信息网", 
+        "url": "http://www.fmiri.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "139", 
+        "name": "中国色谱网", 
+        "url": "http://www.sepu.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "140", 
+        "name": "中国化学化工论坛", 
+        "url": "http://www.ccebbs.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "141", 
+        "name": "中国化工信息中心", 
+        "url": "http://www.cncic.gov.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "142", 
+        "name": "中国聚合物网", 
+        "url": "http://www.polymer.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "143", 
+        "name": "高分子材料网", 
+        "url": "http://www.polymercn.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "144", 
+        "name": "乳化燃料网", 
+        "url": "http://www.emfuel.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "145", 
+        "name": "搜阳网", 
+        "url": "http://www.sousolar.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "146", 
+        "name": "英大网", 
+        "url": "http://www.indaa.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "147", 
+        "name": "中国新能源网", 
+        "url": "http://www.newenergy.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "148", 
+        "name": "中国能源网", 
+        "url": "http://www.china5e.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "149", 
+        "name": "中国电力新闻网", 
+        "url": "http://www.cpnn.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "150", 
+        "name": "中国电力研学网", 
+        "url": "http://www.cepsc.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "151", 
+        "name": "电力设备网", 
+        "url": "http://www.cepee.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "152", 
+        "name": "电力建设网", 
+        "url": "http://www.dianjian.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "153", 
+        "name": "计算机科学杂志", 
+        "url": "http://www.jsjkx.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "154", 
+        "name": "中国气象论坛", 
+        "url": "http://www.cmabbs.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "155", 
+        "name": "防雷资讯网", 
+        "url": "http://www.e-engineer.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "156", 
+        "name": "中国有色金属网", 
+        "url": "http://www.cnmn.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "157", 
+        "name": "中国金属新闻网", 
+        "url": "http://www.metalnews.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "158", 
+        "name": "21世纪电子网", 
+        "url": "http://www.21eic.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "159", 
+        "name": "21IC 中国电子网", 
+        "url": "http://www.21ic.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "160", 
+        "name": "CELPARK电子园", 
+        "url": "http://www.cepark.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "161", 
+        "name": "EDN China（电子设计技术）", 
+        "url": "http://www.ednchina.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "162", 
+        "name": "EEPW电子产品世界", 
+        "url": "http://www.eepw.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "163", 
+        "name": "手电大家谈", 
+        "url": "http://www.shoudian.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "164", 
+        "name": "卫星电视发烧友", 
+        "url": "http://www.tvro.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "165", 
+        "name": "我爱研发网", 
+        "url": "http://www.52rd.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "166", 
+        "name": "中国弱电之家网", 
+        "url": "http://www.01ruodian.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "167", 
+        "name": "中国电子信息产业网", 
+        "url": "http://www.cena.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "168", 
+        "name": "中国电子资源网", 
+        "url": "http://www.chinadz.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "169", 
+        "name": "磁动力电子网", 
+        "url": "http://www.cdle.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "170", 
+        "name": "电线电缆专业网", 
+        "url": "http://www.dxdlw.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "171", 
+        "name": "电子设计信息网", 
+        "url": "http://www.eaw.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "172", 
+        "name": "电子网", 
+        "url": "http://www.cena.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "173", 
+        "name": "电子元件技术网", 
+        "url": "http://www.cntronics.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "174", 
+        "name": "电子工程师之家", 
+        "url": "http://www.eehome.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "175", 
+        "name": "国际电子商情网", 
+        "url": "http://www.esmchina.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "176", 
+        "name": "今日电子", 
+        "url": "http://www.epc.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "177", 
+        "name": "矿石收音机", 
+        "url": "http://www.crystalradio.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "178", 
+        "name": "综合电子论坛", 
+        "url": "http://www.avrw.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "179", 
+        "name": "嵌入式在线", 
+        "url": "http://www.mcuol.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "180", 
+        "name": "嵌入式技术网", 
+        "url": "http://www.icembed.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "181", 
+        "name": "Tony嵌入式", 
+        "url": "http://www.cevx.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "182", 
+        "name": "大虾电子网", 
+        "url": "http://www.daxia.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "183", 
+        "name": "电子工程网（原嵌入式公社）", 
+        "url": "http://www.embcom.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "184", 
+        "name": "SMT论坛", 
+        "url": "http://www.smtsite.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "185", 
+        "name": "SMT之家", 
+        "url": "http://www.smthome.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "186", 
+        "name": "21ICSEARCH", 
+        "url": "http://www.21icsearch.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "187", 
+        "name": "盛明零件网", 
+        "url": "http://www.icminer.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "188", 
+        "name": "IC资料网", 
+        "url": "http://www.icpdf.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "189", 
+        "name": "维库电子开发网", 
+        "url": "http://www.weeqoo.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "190", 
+        "name": "netCOMPONENTS电子元件查询", 
+        "url": "http://www.netcomponents.com/zh", 
+        "language": "1"
+    }, 
+    {
+        "id": "191", 
+        "name": "OK电子元器件资料网", 
+        "url": "http://cn.okdatasheet.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "192", 
+        "name": "SEMI半导体产业网", 
+        "url": "http://www.semi.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "193", 
+        "name": "DSP交流网", 
+        "url": "http://www.hellodsp.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "194", 
+        "name": "视频之家", 
+        "url": "http://www.52video.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "195", 
+        "name": "数字电视中文网", 
+        "url": "http://www.dvbcn.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "196", 
+        "name": "投影时代网", 
+        "url": "http://www.pjtime.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "197", 
+        "name": "照明工程师社区", 
+        "url": "http://www.ilighting.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "198", 
+        "name": "中国光纤在线", 
+        "url": "http://www.c-fol.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "199", 
+        "name": "中国光学期刊网", 
+        "url": "http://www.opticsjournal.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "200", 
+        "name": "中国光学光电子行业网", 
+        "url": "http://www.coema.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "201", 
+        "name": "光行天下技术论坛", 
+        "url": "http://www.opticsky.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "202", 
+        "name": "光电新闻网", 
+        "url": "http://www.ofweek.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "203", 
+        "name": "《电池》", 
+        "url": "http://www.batterypub.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "204", 
+        "name": "PCB信息网", 
+        "url": "http://web.pcbinfo.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "205", 
+        "name": "中国PCB论坛网", 
+        "url": "http://www.pcbbbs.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "206", 
+        "name": "中国PCB技术网", 
+        "url": "http://www.pcbtech.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "207", 
+        "name": "电路图网", 
+        "url": "http://www.q606.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "208", 
+        "name": "电子电路网", 
+        "url": "http://www.cndzz.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "209", 
+        "name": "RFID 世界网", 
+        "url": "http://www.rfidworld.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "210", 
+        "name": "RFID射频快报", 
+        "url": "http://www.rfidinfo.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "211", 
+        "name": "51单片机学习网", 
+        "url": "http://www.51c51.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "212", 
+        "name": "能源世界网", 
+        "url": "http://www.chinagb.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "213", 
+        "name": "中国建设网", 
+        "url": "http://www.cbi360.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "214", 
+        "name": "中国建筑设计行业网", 
+        "url": "http://www.cnjzsj.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "215", 
+        "name": "建设新闻网", 
+        "url": "http://www.114news.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "216", 
+        "name": "建筑新时代", 
+        "url": "http://www.jzcad.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "217", 
+        "name": "建筑中国俱乐部", 
+        "url": "http://club.archina.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "218", 
+        "name": "自由建筑报道", 
+        "url": "http://www.far2000.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "219", 
+        "name": "土木工程师在线", 
+        "url": "http://gcszx.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "220", 
+        "name": "土木工程网", 
+        "url": "http://www.civilcn.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "221", 
+        "name": "3s人", 
+        "url": "http://www.3sren.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "222", 
+        "name": "3sNews", 
+        "url": "http://www.3snews.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "223", 
+        "name": "台湾航空测量及遥感探测学会", 
+        "url": "http://www.csprs.org.tw", 
+        "language": "1"
+    }, 
+    {
+        "id": "224", 
+        "name": "中国国家地理网", 
+        "url": "http://www.dili360.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "225", 
+        "name": "中国自然资源学会网", 
+        "url": "http://www.csnr.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "226", 
+        "name": "《华夏地理》", 
+        "url": "http://ngmchina.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "227", 
+        "name": "地理信息系统论坛", 
+        "url": "http://www.gisforum.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "228", 
+        "name": "地理时间", 
+        "url": "http://www.comgeo.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "229", 
+        "name": "地理学报", 
+        "url": "http://www.geog.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "230", 
+        "name": "地理中国", 
+        "url": "http://www.geochina.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "231", 
+        "name": "地理科学进展", 
+        "url": "http://www.progressingeography.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "232", 
+        "name": "地球科学", 
+        "url": "http://www.earth-science.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "233", 
+        "name": "CIO INSIGHT 信息方略", 
+        "url": "http://www.cioinsight.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "234", 
+        "name": "IT时代周刊", 
+        "url": "http://www.ittime.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "235", 
+        "name": "PC WORLD中国网", 
+        "url": "http://www.pcworld.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "236", 
+        "name": "中国电脑教育网", 
+        "url": "http://www.cce.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "237", 
+        "name": "《新电脑》新门户", 
+        "url": "http://www.chip.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "238", 
+        "name": "《中国信息化》", 
+        "url": "http://www.ichina.net.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "239", 
+        "name": "《电脑编程技巧与维护》", 
+        "url": "http://www.comprg.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "240", 
+        "name": "《家用电脑》", 
+        "url": "http://www.cbifamily.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "241", 
+        "name": "电脑迷", 
+        "url": "http://www.cpcfan.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "242", 
+        "name": "电脑商网-电脑商报", 
+        "url": "http://www2.saism.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "243", 
+        "name": "CIO时代网", 
+        "url": "http://www.ciotimes.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "244", 
+        "name": "cnBeta中文业界资讯站", 
+        "url": "http://www.cnbeta.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "245", 
+        "name": "Docools IT新视点", 
+        "url": "http://www.docools.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "246", 
+        "name": "eNet硅谷动力", 
+        "url": "http://www.enet.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "247", 
+        "name": "赛迪网", 
+        "url": "http://www.ccidnet.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "248", 
+        "name": "天极网", 
+        "url": "http://www.chinabyte.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "249", 
+        "name": "ITBear", 
+        "url": "http://www.itbear.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "250", 
+        "name": "IT商业新闻网", 
+        "url": "http://www.itxinwen.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "251", 
+        "name": "亿邦动力网", 
+        "url": "http://www.ebrun.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "252", 
+        "name": "TechWeb", 
+        "url": "http://www.techweb.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "253", 
+        "name": "中国IT在线", 
+        "url": "http://www.cnitonline.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "254", 
+        "name": "百脑汇在线", 
+        "url": "http://www.buynow.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "255", 
+        "name": "爱好者网站", 
+        "url": "http://www.cfan.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "256", 
+        "name": "第三媒体", 
+        "url": "http://www.thethirdmedia.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "257", 
+        "name": "多易网（DOIT）", 
+        "url": "http://www.doit.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "258", 
+        "name": "计世网", 
+        "url": "http://www.ccw.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "259", 
+        "name": "IBM DB2 数据库用户社区", 
+        "url": "http://www.db2china.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "260", 
+        "name": "流媒体网", 
+        "url": "http://www.lmtw.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "261", 
+        "name": "MID爱好者之家", 
+        "url": "http://www.midbbs.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "262", 
+        "name": "易特资讯网", 
+        "url": "http://www.ithard.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "263", 
+        "name": "电脑软硬件应用网", 
+        "url": "http://www.45it.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "264", 
+        "name": "服务器在线", 
+        "url": "http://www.doserv.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "265", 
+        "name": "哈维硬件网", 
+        "url": "http://www.hwit.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "266", 
+        "name": "专门网", 
+        "url": "http://www.51nb.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "267", 
+        "name": "爱Mac中文网", 
+        "url": "http://www.aimac.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "268", 
+        "name": "酷麦中文网", 
+        "url": "http://www.coolmac.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "269", 
+        "name": "啃苹果论坛", 
+        "url": "http://www.kenapple.com/forum.php", 
+        "language": "1"
+    }, 
+    {
+        "id": "270", 
+        "name": "超频网", 
+        "url": "http://www.ocer.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "271", 
+        "name": "InToMod", 
+        "url": "http://www.intomod.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "272", 
+        "name": "InfoQ", 
+        "url": "http://www.infoq.com/cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "273", 
+        "name": "中国软件网", 
+        "url": "http://www.soft6.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "274", 
+        "name": "中国软件资讯网", 
+        "url": "http://cnsoftnews.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "275", 
+        "name": "德赛网", 
+        "url": "http://www.dosaas.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "276", 
+        "name": "电力软件网", 
+        "url": "http://www.ep-soft.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "277", 
+        "name": "乐悠LoveUnix论坛", 
+        "url": "http://www.loveunix.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "278", 
+        "name": "ChinaUnix", 
+        "url": "http://www.chinaunix.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "279", 
+        "name": "嵌入式linux中文站", 
+        "url": "http://www.embeddedlinux.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "280", 
+        "name": "弯柚博客", 
+        "url": "http://www.ourunix.org", 
+        "language": "1"
+    }, 
+    {
+        "id": "281", 
+        "name": "中国Linux论坛", 
+        "url": "http://www.linuxforum.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "282", 
+        "name": "红联Linux", 
+        "url": "http://www.linuxdiyf.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "283", 
+        "name": "数学爱好者网站", 
+        "url": "http://www.mathfan.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "284", 
+        "name": "植物生理学报", 
+        "url": "http://www.plant-physiology.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "285", 
+        "name": "生物行（生物导航网）", 
+        "url": "http://www.bioguider.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "286", 
+        "name": "牧夫天文论坛", 
+        "url": "http://www.astronomy.com.cn/bbs/forum.php", 
+        "language": "1"
+    }, 
+    {
+        "id": "287", 
+        "name": "化石网", 
+        "url": "http://www.uua.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "288", 
+        "name": "资源科学", 
+        "url": "http://www.resci.cn/ch/index.aspx", 
+        "language": "1"
+    }, 
+    {
+        "id": "289", 
+        "name": "中国Argo实时资料中心", 
+        "url": "http://www.argo.org.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "290", 
+        "name": "中国气象学会", 
+        "url": "http://www.cms1924.org/CN/index.html", 
+        "language": "1"
+    }, 
+    {
+        "id": "291", 
+        "name": "中国科学院测量与地球物理研究所", 
+        "url": "http://www.whigg.ac.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "292", 
+        "name": "中国地质调查局发展研究中心（全国地质资料馆）", 
+        "url": "http://www.drc.cgs.gov.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "293", 
+        "name": "中国测绘科学研究院", 
+        "url": "http://www.casm.ac.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "294", 
+        "name": "国家卫星海洋应用中心", 
+        "url": "http://www.nsoas.gov.cn/gy/channel/default.asp", 
+        "language": "1"
+    }, 
+    {
+        "id": "295", 
+        "name": "中国城乡规划行业网", 
+        "url": "http://www.china-up.com/", 
+        "language": "1"
+    }, 
+    {
+        "id": "296", 
+        "name": "ABBS建筑论坛", 
+        "url": "http://www.abbs.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "297", 
+        "name": "中国模具论坛", 
+        "url": "http://www.mouldbbs.com", 
+        "language": "1"
+    }, 
+    {
+        "id": "298", 
+        "name": "中国石化新闻网", 
+        "url": "http://www.sinopecnews.com.cn", 
+        "language": "1"
+    }, 
+    {
+        "id": "299", 
+        "name": "中国防水网", 
+        "url": "http://www.cnwb.net", 
+        "language": "1"
+    }, 
+    {
+        "id": "300", 
+        "name": "CICP信息网", 
+        "url": "http://www.cipc.com.cn/cn/home/index.asp", 
+        "language": "1"
+    }
+]
