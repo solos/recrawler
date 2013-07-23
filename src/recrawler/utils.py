@@ -69,6 +69,8 @@ def process(func):
                    urls)
         urls = list(set(urls))
         rootdomain = extract_rootdomain(url)
+        if not rootdomain:
+            return (url, urlhash, status, domain, content)
         domainhash = cityhash.CityHash64(rootdomain)
         site_id, language = db.get_site_info(domainhash)
         if not site_id or not language:
