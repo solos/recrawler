@@ -64,11 +64,14 @@ def submit_job(url, detail=True):
         query.Query('''insert into jobs(urlhash, domainhash, type, url) \
               values(%s, %s, %s, %s);''', (urlhash, domainhash, 1, url))
         query.Pool.Commit()
+        rootdomain = tldextracter.extract_rootdomain(url)
+        if not rootdomain:
+            return False
         job = {'url': url}
         if detail:
-            r.rpush(config.QUEUE, json.dumps(job))
+            r.rpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
         else:
-            r.lpush(config.QUEUE, json.dumps(job))
+            r.lpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
         return True
 
 
@@ -89,7 +92,7 @@ def update_status(urlhash_status):
 
 def get_jobs(limit=100):
     r = redis.Redis(connection_pool=POOL)
-    jobs = filter(None, [r.rpop(config.QUEUE) for i in xrange(0, limit)])
+    jobs = filter(None, [r.rpop(queue) for queue in config.QUEUES])
     return jobs
 
 
@@ -101,43 +104,16 @@ def push(url, detail=True):
         except Exception, e:
             print e
             pass
+    rootdomain = tldextracter.extract_rootdomain(url)
+    if not rootdomain:
+        return False
     r = redis.Redis(connection_pool=POOL)
     job = {'url': url}
     if detail:
-        r.rpush(config.QUEUE, json.dumps(job))
+        r.rpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
     else:
-        r.lpush(config.QUEUE, json.dumps(job))
+        r.lpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
     return True
-
-
-def insert_db(site_id, language, url_hash, title, url, content, html):
-
-    query = PySQLPool.getNewQuery(connection)
-    query.Query('select url_hash from news_site_html where url_hash = %s;',
-                url_hash)
-    if query.record:
-        return False
-    else:
-        query.Query('insert into news_site_html'
-                    '(site_id, language, url_hash, title, url, content, html) '
-                    'values(%s, %s, %s, %s, %s, %s, %s);',
-                    (site_id, language, url_hash, title, url, content, html))
-        query.Pool.Commit()
-        return True
-
-
-def get_site_info(domainhash):
-
-    #site_info id domain_hash language name domain url
-    query = PySQLPool.getNewQuery(connection)
-    query.Query('select id, language from news_sites where domainhash = %s;',
-                domainhash)
-    if query.record:
-        record = query.record[0]
-        site_id, language = record['id'], record['language']
-        return (site_id, language)
-    else:
-        return (None, None)
 
 
 if __name__ == '__main__':

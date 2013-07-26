@@ -13,15 +13,10 @@ import sched
 import redis
 import config
 from utils import handle
-from utils import extract_domain
-from datetime import timedelta
-from expiredict import DataCache
+from utils import extract_rootdomain
 
 
 gpool = Pool(10)
-global domain_cache
-domain_cache = DataCache(timedelta(0, 10, 0))
-
 POOL = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
 
 
@@ -41,15 +36,16 @@ def filter_recent(r, jobs):
         try:
             task = json.loads(job)
             url = task['url']
-            domain = extract_domain(url)
+            rootdomain = extract_rootdomain(url)
         except:
             r.lpush(config.QUEUE, job)
 
         try:
-            domain_cache[domain]
+            r.get('%s_status' % domain)
             r.lpush(config.QUEUE, job)
         except KeyError:
-            domain_cache.set(domain, None, timedelta(0, 10, 0))
+            r.set('%s_status' % domain, None)
+            r.expire('%s_status' % domain, 10)
             filtered_jobs.append(job)
     return filtered_jobs
 

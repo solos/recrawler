@@ -5,21 +5,14 @@ import gevent
 from gevent import monkey
 monkey.patch_all()
 
-import re
 import db
 import json
 import urllib2
 import cityhash
 import encoding
-import lxml.html
 from spider import spider
 from logger import logger
 from tldextracter import extract_domain
-from tldextracter import extract_rootdomain
-from htmlcontent import Extractor
-
-ext = Extractor()
-title_match = re.compile(r'<title>(.*?)</title>', re.IGNORECASE)
 
 
 def fetch(url, proxy=True):
@@ -47,57 +40,19 @@ def fetch(url, proxy=True):
     return status, content
 
 
-def process(func):
+def process(func, *args, **kwargs):
+    print 'process', args, kwargs
 
     def wrapper(*args, **kwargs):
-        url, urlhash, status, domain, content = func(*args, **kwargs)
-        if not content:
-            return (url, urlhash, status, domain, content)
-        url = url.encode('utf8')
-        content = content.encode('utf8')
-        tree = lxml.html.fromstring(content)
-        html = content
-        ext_content = ext.get_content(content, True, with_tag=False)
-        urls = map(lambda a: a.attrib['href'] if
-                   a.attrib['href'].startswith('http') and
-                   domain in a.attrib['href'] or
-                   a.attrib['href'].startswith('/') else None,
-                   filter(lambda a: 'href' in a.attrib, tree.xpath('//a')))
-        urls = filter(None, urls)
-        urls = map(lambda uri: 'http://%s%s' % (domain, uri) if
-                   uri.startswith('/') else uri,
-                   urls)
-        urls = list(set(urls))
-        rootdomain = extract_rootdomain(url)
-        if not rootdomain:
-            return (url, urlhash, status, domain, content)
-        domainhash = cityhash.CityHash64(rootdomain)
-        site_id, language = db.get_site_info(domainhash)
-        if not site_id or not language:
-            pass
-        try:
-            title = title_match.findall(content)[0]
-        except Exception, e:
-            print e
-            title = ''
-        print 'site_id', site_id, 'languagle', language, 'urlhash', urlhash
-        print 'title', title, 'url', url, 'ext_content', ext_content
-        print 'urls', urls
-        try:
-            db.insert_db(site_id, language, urlhash, title, url,
-                         ext_content, html)
-        except Exception, e:
-            print e
-        try:
-            map(db.submit_job, urls)
-        except Exception, e:
-            print e
-        return (url, urlhash, status, domain, content)
+        url = func(*args, **kwargs)
+        print 'wrapper', args, kwargs, url
+        return url
     return wrapper
 
 
 @process
-def handle(job):
+def handle(job, *args, **kwargs):
+    print 'handle', args, kwargs
     task = json.loads(job)
     url = task["url"]
     domain = extract_domain(url)
@@ -110,6 +65,7 @@ def handle(job):
         return (url, urlhash, status, domain, content)
     _, content = encoding.html_to_unicode('', content)
     return (url, urlhash, status, domain, content)
+
 
 if __name__ == '__main__':
     #pass
