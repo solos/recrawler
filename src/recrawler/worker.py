@@ -13,7 +13,7 @@ import sched
 import redis
 import config
 from utils import handle
-from utils import extract_rootdomain
+from tldextracter import extract_rootdomain
 
 
 gpool = Pool(10)
@@ -41,12 +41,14 @@ def filter_recent(r, jobs):
             r.lpush(config.QUEUE, job)
 
         try:
-            r.get('%s_status' % domain)
-            r.lpush(config.QUEUE, job)
-        except KeyError:
-            r.set('%s_status' % domain, None)
-            r.expire('%s_status' % domain, 10)
-            filtered_jobs.append(job)
+            if not r.exists('%s_status' % rootdomain):
+                r.set('%s_status' % rootdomain, '')
+                r.expire('%s_status' % rootdomain, 10)
+                filtered_jobs.append(job)
+            else:
+                r.lpush(config.QUEUE, job)
+        except Exception, e:
+            print e
     return filtered_jobs
 
 
