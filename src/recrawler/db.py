@@ -60,12 +60,16 @@ def submit_job(url, detail=True):
     else:
         r = redis.Redis(connection_pool=POOL)
         domain = tldextracter.extract_domain(url)
+        if not domain:
+            print 'domain is None'
+            return False
         domainhash = cityhash.CityHash64(domain)
         query.Query('''insert into jobs(urlhash, domainhash, type, url) \
               values(%s, %s, %s, %s);''', (urlhash, domainhash, 1, url))
         query.Pool.Commit()
         rootdomain = tldextracter.extract_rootdomain(url)
         if not rootdomain:
+            print 'rootdomain is None'
             return False
         job = {'url': url}
         if detail:
@@ -92,7 +96,8 @@ def update_status(urlhash_status):
 
 def get_jobs(limit=100):
     r = redis.Redis(connection_pool=POOL)
-    jobs = filter(None, [r.rpop(queue) for queue in config.QUEUES])
+    queues = r.keys('queue_*')
+    jobs = filter(None, [r.rpop(queue) for queue in queues])
     return jobs
 
 
@@ -116,10 +121,37 @@ def push(url, detail=True):
     return True
 
 
+def insert_db(site_id, language, url_hash, title, url, content, html):
+
+    query = PySQLPool.getNewQuery(connection)
+    query.Query('select url_hash from news_site_html where url_hash = %s;',
+                url_hash)
+    if query.record:
+        return False
+    else:
+        query.Query('insert into news_site_html'
+                    '(site_id, language, url_hash, title, url, content, html) '
+                    'values(%s, %s, %s, %s, %s, %s, %s);',
+                    (site_id, language, url_hash, title, url, content, html))
+        query.Pool.Commit()
+        return True
+
+
+def get_site_info(domainhash):
+
+    #site_info id domain_hash language name domain url
+    query = PySQLPool.getNewQuery(connection)
+    query.Query('select id, language from news_sites where domainhash = %s;',
+                domainhash)
+    if query.record:
+        record = query.record[0]
+        site_id, language = record['id'], record['language']
+        return (site_id, language)
+    else:
+        return (None, None)
+
+
 if __name__ == '__main__':
-    sites = json.loads(open('sites.json', 'r').read())
-    urls = [site['url'] for site in sites]
+    from rulers import RULERS
+    urls = [RULERS[domain]["url"] for domain in RULERS]
     map(submit_job, urls)
-    #pass
-    #domainhash = 1475423385534659117
-    #print get_site_info(domainhash)
