@@ -22,6 +22,7 @@ from rulers import RULERS
 
 ext = Extractor()
 title_match = re.compile(r'<title>(.*?)</title>', re.IGNORECASE)
+url_match = re.compile(r'#.*', re.DOTALL)
 
 
 def fetch(url, proxy=True):
@@ -59,11 +60,19 @@ def process(func, *args, **kwargs):
         rootdomain = extract_rootdomain(url)
         if not rootdomain:
             return (url, urlhash, status, domain, content)
-        absolute_content = lxml.html.make_links_absolute(content, url)
-        tree = lxml.html.fromstring(absolute_content)
-        content = content.encode('utf8')
-        html = content
-        ext_content = ext.get_content(content, True, with_tag=False)
+        try:
+            absolute_content = lxml.html.make_links_absolute(content, url)
+            tree = lxml.html.fromstring(absolute_content)
+        except Exception, e:
+            print e
+            return (url, urlhash, status, domain, content)
+        u_content = content.encode('utf8')
+        html = u_content
+        try:
+            ext_content = ext.get_content(content, True, with_tag=False)
+        except Exception, e:
+            print e
+            ext_content = ''
         urls = tree.xpath('//a')
         urls = filter(lambda a: 'href' in a.attrib, tree.xpath('//a'))
         urls = filter(None, urls)
@@ -72,11 +81,11 @@ def process(func, *args, **kwargs):
                       not url.startswith('mailto:') and not None, urls)
         urls = list(set(urls))
         filtered_urls = []
-        for url in urls:
+        for _url in urls:
             for prefix in RULERS[rootdomain]["rulers"]:
                 try:
-                    if url.startswith(prefix):
-                        filtered_urls.append(url)
+                    if _url.startswith(prefix):
+                        filtered_urls.append(_url)
                 except Exception, e:
                     #print e
                     continue
@@ -86,7 +95,7 @@ def process(func, *args, **kwargs):
             print site_id, language
             pass
         try:
-            title = title_match.findall(content)[0]
+            title = title_match.findall(u_content)[0]
         except Exception, e:
             print e
             title = ''
@@ -102,7 +111,7 @@ def process(func, *args, **kwargs):
             map(db.submit_job, filtered_urls)
         except Exception, e:
             print e
-        return (url, urlhash, status, domain, content)
+        return (url, urlhash, status, domain, u_content)
     return wrapper
 
 
