@@ -22,13 +22,15 @@ def sync_content(urlhash):
 
     query = PySQLPool.getNewQuery(connection)
     print urlhash
-    html = query.Query('''select html from news_html where url_hash=%s;''',
-                       (urlhash,))
-    ext_content = ext.get_content(html, True, with_tag=False)
-    if ext_content != '':
-        query.Query('''update data_news2 set content=%s where url_hash=%s;''',
-                   (ext_content, urlhash))
-        query.Pool.Commit()
+    query.Query('''select html from news_html where url_hash=%s;''',
+               (urlhash,))
+    if query.record:
+        html = query.record[0]['html']
+        ext_content = ext.get_content(html, True, with_tag=False)
+        if ext_content != '':
+            query.Query('update data_news2 set content=%s where url_hash=%s;',
+                       (ext_content, urlhash))
+            query.Pool.Commit()
     return True
 
 if __name__ == '__main__':
