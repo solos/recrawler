@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #coding=utf-8
 
-PROXYS = [
+PROXIES = [
     {'http': 'http://58.242.249.31:10080'},
     {'http': 'http://61.164.42.147'},
     {'http': 'http://111.1.32.124:81'},
