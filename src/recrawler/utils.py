@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 #coding=utf-8
 
-import gevent
 from gevent import monkey
 monkey.patch_all()
 
 import re
 import db
 import json
-import urllib2
+import random
+import config
+import requests
 import cityhash
-import encoding
 import lxml.html
-from spider import spider
 from logger import logger
+from proxies import PROXIES
+from useragents import USER_AGENTS
 from tldextracter import extract_domain
 from tldextracter import extract_rootdomain
 from htmlcontent import Extractor
@@ -22,29 +23,30 @@ ext = Extractor()
 title_match = re.compile(r'<title>(.*?)</title>', re.IGNORECASE)
 
 
-def fetch(url, proxy=True):
-
-    if proxy:
-        opener = spider.get_proxy_opener()
+def fetch(url, use_proxy=True, timeout=None, headers={}):
+    status, content = 408, ''
+    timeout = timeout or config.TIMEOUT
+    headers = headers or config.HEADERS
+    useragent = random.randint(0, len(USER_AGENTS)-1)
+    headers["user-agent"] = useragent
+    if use_proxy:
+        proxy_index = random.randint(0, len(PROXIES)-1)
+        proxies = PROXIES[proxy_index]
+        try:
+            r = requests.get(url, stream=False, verify=False,
+                             timeout=timeout, headers=headers,
+                             proxies=proxies)
+        except Exception, e:
+            print e
+            return status, content
     else:
-        opener = spider.get_opener()
-    content = ''
-    status = 408
-    try:
-        with gevent.Timeout(5, False):
-            req = opener.open(url)
-            status = req.getcode()
-            content = req.read()
-    except urllib2.HTTPError, e:
-        status = int(e.code)
-    except urllib2.URLError, e:
-        if isinstance(e.reason, Exception):
-            status = int(e.reason.errno)
-    except Exception, e:
-        print e
-        pass
-    print 'length', len(content)
-    return status, content
+        try:
+            r = requests.get(url, stream=False, verify=False,
+                             timeout=timeout, headers=headers)
+        except Exception, e:
+            print e
+            return status, content
+    return r.status_code, r.text
 
 
 def process(func):
@@ -101,14 +103,13 @@ def handle(job):
     task = json.loads(job)
     url = task["url"]
     domain = extract_domain(url)
-    status, content = fetch(url, proxy=False)
+    status, content = fetch(url, use_proxy=True)
     url = url.encode('utf8')
     urlhash = cityhash.CityHash64(url)
     logger.info('%s|%s' % (url, status))
     if status != 200:
         db.push(url, detail=False)
         return (url, urlhash, status, domain, content)
-    _, content = encoding.html_to_unicode('', content)
     return (url, urlhash, status, domain, content)
 
 if __name__ == '__main__':
