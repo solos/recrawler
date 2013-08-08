@@ -11,6 +11,7 @@ import random
 import config
 import requests
 import cityhash
+import encoding
 import lxml.html
 from logger import logger
 from htmlcontent import Extractor
@@ -49,7 +50,7 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
         except Exception, e:
             print e
             return status, content
-    return r.status_code, r.text
+    return r.status_code, r.content
 
 
 def process(func, *args, **kwargs):
@@ -124,6 +125,7 @@ def handle(job, *args, **kwargs):
     url = url.encode('utf8')
     urlhash = cityhash.CityHash64(url)
     logger.info('%s|%s' % (url, status))
+    _, content = encoding.html_to_unicode('', content)
     if status != 200:
         db.push(url, detail=False)
         return (url, urlhash, status, domain, content)
