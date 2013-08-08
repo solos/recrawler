@@ -12,22 +12,36 @@ import json
 import sched
 import redis
 import config
+import murmur
 from utils import handle
+from bitarray import bitarray
 from tldextracter import extract_rootdomain
-
 
 gpool = Pool(10)
 POOL = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
 
+global bitmap
+bitmap = bitarray(2**32)
+bitmap.setall(False)
 
-def work(queue):
+
+def do(job):
+    urls = handle(job)
+    for url in urls:
+        urlhash = murmur.string_hash(url)
+        if not bitmap[urlhash]:
+            bitmap[urlhash] = True
+            db.push(url)
+
+
+def work():
     jobs = db.get_jobs()
     r = redis.Redis(connection_pool=POOL)
     jobs = filter_recent(r, jobs)
     #print 'domain cache', [i for i in domain_cache.items()]
     #urlhash_statuses = gpool.map(handle, jobs)
     print jobs
-    gpool.map(handle, jobs)
+    gpool.map(do, jobs)
 
 
 def filter_recent(r, jobs):
@@ -54,7 +68,7 @@ def filter_recent(r, jobs):
 
 def cycle_run(interval):
     s.enter(interval, 0, cycle_run, (interval,))
-    work('default')
+    work()
 
 
 if __name__ == '__main__':

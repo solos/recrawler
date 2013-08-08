@@ -57,17 +57,17 @@ def process(func, *args, **kwargs):
     def wrapper(*args, **kwargs):
         url, urlhash, status, domain, content = func(*args, **kwargs)
         if not content:
-            return (url, urlhash, status, domain, content)
+            return []
         url = url.encode('utf8')
         rootdomain = extract_rootdomain(url)
         if not rootdomain:
-            return (url, urlhash, status, domain, content)
+            return []
         try:
             absolute_content = lxml.html.make_links_absolute(content, url)
             tree = lxml.html.fromstring(absolute_content)
         except Exception, e:
             print e
-            return (url, urlhash, status, domain, content)
+            return []
         u_content = content.encode('utf8')
         html = u_content
         try:
@@ -84,6 +84,7 @@ def process(func, *args, **kwargs):
         urls = list(set(urls))
         filtered_urls = []
         for _url in urls:
+            _url = url_match.sub('', _url)
             for prefix in RULERS[rootdomain]["rulers"]:
                 try:
                     if _url.startswith(prefix):
@@ -109,11 +110,7 @@ def process(func, *args, **kwargs):
                          ext_content, html)
         except Exception, e:
             print e, type(url)
-        try:
-            map(db.submit_job, filtered_urls)
-        except Exception, e:
-            print e
-        return (url, urlhash, status, domain, u_content)
+        return filtered_urls
     return wrapper
 
 
