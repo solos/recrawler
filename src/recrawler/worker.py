@@ -27,7 +27,7 @@ def work():
     r = redis.Redis(connection_pool=POOL)
     jobs = filter_recent(r, jobs)
     print jobs
-    gpool.map(do, jobs)
+    gpool.map(handle, jobs)
 
 
 def filter_recent(r, jobs):

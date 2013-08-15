@@ -199,7 +199,8 @@ def get_site_info(domainhash):
         cursor = conn.cursor()
     except Exception, e:
         print e
-        cursor.close() conn.close()
+        cursor.close()
+        conn.close()
 
     affected_rows = cursor.execute('select id, language from news_sites where'
                                    ' domainhash = %s;', domainhash)
