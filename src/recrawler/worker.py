@@ -14,32 +14,18 @@ import redis
 import config
 import murmur
 from utils import handle
-from bitarray import bitarray
 from tldextracter import extract_rootdomain
 
-gpool = Pool(10)
-POOL = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
-
-global bitmap
-bitmap = bitarray(2**32)
-bitmap.setall(False)
-
-
-def do(job):
-    urls = handle(job)
-    for url in urls:
-        urlhash = murmur.string_hash(url)
-        if not bitmap[urlhash]:
-            bitmap[urlhash] = True
-            db.push(url)
+gpool = Pool(config.GPOOLSIZE)
+POOL = redis.ConnectionPool(host=config.RHOST,
+                            port=config.RPORT,
+                            db=config.RDB)
 
 
 def work():
     jobs = db.get_jobs()
     r = redis.Redis(connection_pool=POOL)
     jobs = filter_recent(r, jobs)
-    #print 'domain cache', [i for i in domain_cache.items()]
-    #urlhash_statuses = gpool.map(handle, jobs)
     print jobs
     gpool.map(do, jobs)
 
@@ -57,12 +43,13 @@ def filter_recent(r, jobs):
         try:
             if not r.exists('%s_status' % rootdomain):
                 r.set('%s_status' % rootdomain, '')
-                r.expire('%s_status' % rootdomain, 10)
+                r.expire('%s_status' % rootdomain, config.EXPIRE)
                 filtered_jobs.append(job)
             else:
                 r.lpush(config.QUEUE, job)
         except Exception, e:
             print e
+            return jobs
     return filtered_jobs
 
 
@@ -72,7 +59,7 @@ def cycle_run(interval):
 
 
 if __name__ == '__main__':
-    interval = 10
+    interval = config.INTERVAL
     s = sched.scheduler(time.time, gevent.sleep)
     s.enter(interval, 0, cycle_run, (interval, ))
     s.run()
