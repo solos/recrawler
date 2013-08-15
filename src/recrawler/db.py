@@ -5,28 +5,14 @@ import json
 import redis
 import config
 import murmur
+import MySQLdb
 import cityhash
-import PySQLPool
 import tldextracter
 from datetime import datetime
 
 POOL = redis.ConnectionPool(host=config.RHOST,
-                            port=config.RPORt,
+                            port=config.RPORT,
                             db=config.RDB)
-
-queueconnection = PySQLPool.getNewConnection(
-    username=config.QDB_USER,
-    password=config.QDB_PASSWORD,
-    host=config.QDB_HOST,
-    db=config.QDB_DB,
-    charset=config.QDB_CHARSET)
-
-connection = PySQLPool.getNewConnection(
-    username=config.DB_USER,
-    password=config.DB_PASSWORD,
-    host=config.DB_HOST,
-    db=config.DB_DB,
-    charset=config.DB_CHARSET)
 
 
 def init():
@@ -68,9 +54,23 @@ def submit_job(url, detail=True):
     if check_fetched(url):
         return False
     urlhash = cityhash.CityHash64(url)
-    query = PySQLPool.getNewQuery(queueconnection)
-    query.Query('''select urlhash from jobs where urlhash = %s;''', urlhash)
-    if query.record:
+    try:
+        conn = MySQLdb.connect(host=config.QDB_HOST,
+                               user=config.QDB_USER,
+                               passwd=config.QDB_PASSWORD,
+                               db=config.QDB_DB,
+                               charset=config.QDB_CHARSET)
+        cursor = conn.cursor()
+    except Exception, e:
+        print e
+        cursor.close()
+        conn.close()
+        return False
+    affected_rows = cursor.execute('select urlhash from jobs where urlhash'
+                                   '= %s;', urlhash)
+    if affected_rows:
+        cursor.close()
+        conn.close()
         return False
     else:
         r = redis.Redis(connection_pool=POOL)
@@ -79,9 +79,9 @@ def submit_job(url, detail=True):
             print 'domain is None'
             return False
         domainhash = cityhash.CityHash64(domain)
-        query.Query('''insert into jobs(urlhash, domainhash, type, url) \
+        cursor.execute('''insert into jobs(urlhash, domainhash, type, url) \
               values(%s, %s, %s, %s);''', (urlhash, domainhash, 1, url))
-        query.Pool.Commit()
+        conn.commit()
         rootdomain = tldextracter.extract_rootdomain(url)
         if not rootdomain:
             print 'rootdomain is None'
@@ -91,21 +91,38 @@ def submit_job(url, detail=True):
             r.rpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
         else:
             r.lpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
+        cursor.close()
+        conn.close()
         return True
 
 
 def update_status(urlhash_status):
     urlhash, status = urlhash_status.split('|')
-    query = PySQLPool.getNewQuery(queueconnection)
-    query.Query('''select * from jobs where urlhash = %s and fetched = 1;''',
-                (urlhash,))
-    if query.record:
+    try:
+        conn = MySQLdb.connect(host=config.QDB_HOST,
+                               user=config.QDB_USER,
+                               passwd=config.QDB_PASSWORD,
+                               db=config.QDB_DB,
+                               charset=config.QDB_CHARSET)
+        cursor = conn.cursor()
+    except Exception, e:
+        print e
+        cursor.close()
+        conn.close()
+        return False
+    affected_rows = cursor.execute('select * from jobs where urlhash = %s '
+                                   'and fetched = 1;', (urlhash,))
+    if affected_rows:
+        cursor.close()
+        conn.close()
         return False
     else:
         fetched_on = datetime.now()
-        query.Query('update jobs set status=%s, fetched=1, fetched_on=%s'
-                    'where urlhash=%s;', (status, fetched_on, urlhash))
-        query.Pool.Commit()
+        cursor.execute('update jobs set status=%s, fetched=1, fetched_on=%s'
+                       'where urlhash=%s;', (status, fetched_on, urlhash))
+        conn.commit()
+        cursor.close()
+        conn.close()
         return True
 
 
@@ -140,29 +157,56 @@ def push(url, detail=True):
 
 def insert_db(site_id, language, url_hash, title, url, content, html):
 
-    query = PySQLPool.getNewQuery(connection)
-    query.Query('select url_hash from news_site_html where url_hash = %s;',
-                url_hash)
-    if query.record:
+    try:
+        conn = MySQLdb.connect(host=config.DB_HOST,
+                               user=config.DB_USER,
+                               passwd=config.DB_PASSWORD,
+                               db=config.DB_DB,
+                               charset=config.DB_CHARSET)
+        cursor = conn.cursor()
+    except Exception, e:
+        print e
+        cursor.close()
+        conn.close()
+
+    affected_rows = cursor.execute('select url_hash from news_site_html where'
+                                   ' url_hash = %s;', url_hash)
+    if affected_rows:
+        cursor.close()
+        conn.close()
         return False
     else:
-        query.Query('insert into news_site_html'
-                    '(site_id, language, url_hash, title, url, content, html) '
-                    'values(%s, %s, %s, %s, %s, %s, %s);',
-                    (site_id, language, url_hash, title, url, content, html))
-        query.Pool.Commit()
+        cursor.execute(
+            'insert into news_site_html '
+            '(site_id, language, url_hash, title, url, content, html) '
+            'values(%s, %s, %s, %s, %s, %s, %s);',
+            (site_id, language, url_hash, title, url, content, html))
+        conn.commit()
+        cursor.close()
+        conn.close()
         return True
 
 
 def get_site_info(domainhash):
 
     #site_info id domain_hash language name domain url
-    query = PySQLPool.getNewQuery(connection)
-    query.Query('select id, language from news_sites where domainhash = %s;',
-                domainhash)
-    if query.record:
-        record = query.record[0]
-        site_id, language = record['id'], record['language']
+    try:
+        conn = MySQLdb.connect(host=config.DB_HOST,
+                               user=config.DB_USER,
+                               passwd=config.DB_PASSWORD,
+                               db=config.DB_DB,
+                               charset=config.DB_CHARSET)
+        cursor = conn.cursor()
+    except Exception, e:
+        print e
+        cursor.close()
+        conn.close()
+
+    affected_rows = cursor.execute('select id, language from news_sites where'
+                                   ' domainhash = %s;', domainhash)
+    if affected_rows:
+        result = cursor.fetchall()
+        site_id, language = result[0]
         return (site_id, language)
     else:
         return (None, None)
