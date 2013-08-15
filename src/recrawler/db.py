@@ -4,12 +4,15 @@
 import json
 import redis
 import config
+import murmur
 import cityhash
 import PySQLPool
 import tldextracter
 from datetime import datetime
 
-POOL = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+POOL = redis.ConnectionPool(host=config.RHOST,
+                            port=config.RPORt,
+                            db=config.RDB)
 
 queueconnection = PySQLPool.getNewConnection(
     username=config.QDB_USER,
@@ -44,6 +47,16 @@ CREATE TABLE `jobs` (
     pass
 
 
+def check_fetched(url):
+    r = redis.Redis(connection_pool=POOL)
+    mhash = murmur.string_hash(url)
+    if r.getbit(config.BITMAP, mhash):
+        return True
+    else:
+        r.setbit(config.BITMAP, mhash, 1)
+        return False
+
+
 def submit_job(url, detail=True):
 
     if isinstance(url, unicode):
@@ -52,6 +65,8 @@ def submit_job(url, detail=True):
         except Exception, e:
             print e
             pass
+    if check_fetched(url):
+        return False
     urlhash = cityhash.CityHash64(url)
     query = PySQLPool.getNewQuery(queueconnection)
     query.Query('''select urlhash from jobs where urlhash = %s;''', urlhash)
@@ -101,6 +116,8 @@ def push(url, detail=True):
         except Exception, e:
             print e
             pass
+    if check_fetched(url):
+        return False
     r = redis.Redis(connection_pool=POOL)
     job = {'url': url}
     if detail:
