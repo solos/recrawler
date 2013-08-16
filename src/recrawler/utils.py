@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #coding=utf-8
 
+import gevent
 from gevent import monkey
 monkey.patch_all()
 
@@ -33,27 +34,29 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
         proxy_index = random.randint(0, len(PROXIES)-1)
         proxies = PROXIES[proxy_index]
         try:
-            r = requests.get(url, stream=False, verify=False,
-                             timeout=timeout, headers=headers,
-                             proxies=proxies)
+            with gevent.Timeout(config.TIMEOUT, Exception):
+                r = requests.get(url, stream=False, verify=False,
+                                 timeout=timeout, headers=headers,
+                                 proxies=proxies)
         except Exception, e:
             print e
             return status, content
     else:
         try:
-            r = requests.get(url, stream=False, verify=False,
-                             timeout=timeout, headers=headers)
+            with gevent.Timeout(config.TIMEOUT, Exception):
+                r = requests.get(url, stream=False, verify=False,
+                                 timeout=timeout, headers=headers)
         except Exception, e:
             print e
             return status, content
-    return r.status_code, r.text
+    return r.status_code, r.content
 
 
 def process(func):
 
     def wrapper(*args, **kwargs):
         url, urlhash, status, domain, content = func(*args, **kwargs)
-        if not content:
+        if not content or not isinstance(content, unicode):
             return (url, urlhash, status, domain, content)
         url = url.encode('utf8')
         content = content.encode('utf8')
@@ -103,7 +106,7 @@ def handle(job):
     task = json.loads(job)
     url = task["url"]
     domain = extract_domain(url)
-    status, content = fetch(url, use_proxy=True)
+    status, content = fetch(url, use_proxy=False)
     url = url.encode('utf8')
     urlhash = cityhash.CityHash64(url)
     logger.info('%s|%s' % (url, status))
