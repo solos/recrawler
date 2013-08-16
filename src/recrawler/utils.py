@@ -7,6 +7,7 @@ monkey.patch_all()
 import re
 import db
 import json
+import magic
 import random
 import config
 import requests
@@ -57,7 +58,7 @@ def process(func, *args, **kwargs):
 
     def wrapper(*args, **kwargs):
         url, urlhash, status, domain, content = func(*args, **kwargs)
-        if not content:
+        if not content or not isinstance(content, unicode):
             return []
         url = url.encode('utf8')
         rootdomain = extract_rootdomain(url)
@@ -111,6 +112,11 @@ def process(func, *args, **kwargs):
                          ext_content, html)
         except Exception, e:
             print e, type(url)
+        try:
+            map(db.push, filtered_urls)
+        except Exception, e:
+            print e
+            pass
         return filtered_urls
     return wrapper
 
@@ -121,10 +127,13 @@ def handle(job, *args, **kwargs):
     task = json.loads(job)
     url = task["url"]
     domain = extract_domain(url)
-    status, content = fetch(url, use_proxy=True)
+    status, content = fetch(url, use_proxy=False)
     url = url.encode('utf8')
     urlhash = cityhash.CityHash64(url)
     logger.info('%s|%s' % (url, status))
+    if magic.from_buffer(content[:1024], mime=True) != 'text/html':
+        print 'not html', url
+        return (url, urlhash, status, domain, content)
     _, content = encoding.html_to_unicode('', content)
     if status != 200:
         db.push(url, detail=False)
