@@ -39,7 +39,7 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
         proxy_index = random.randint(0, len(PROXIES)-1)
         proxies = PROXIES[proxy_index]
         try:
-            with gevent.Timeout(config.TIMEOUT, False):
+            with gevent.Timeout(config.TIMEOUT, Exception):
                 r = requests.get(url, stream=False, verify=False,
                                  timeout=timeout, headers=headers,
                                  proxies=proxies)
@@ -48,7 +48,7 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
             return status, content
     else:
         try:
-            with gevent.Timeout(config.TIMEOUT, False):
+            with gevent.Timeout(config.TIMEOUT, Exception):
                 r = requests.get(url, stream=False, verify=False,
                                  timeout=timeout, headers=headers)
         except Exception, e:
