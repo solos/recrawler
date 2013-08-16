@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #coding=utf-8
 
+import gevent
 from gevent import monkey
 monkey.patch_all()
 
@@ -38,16 +39,18 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
         proxy_index = random.randint(0, len(PROXIES)-1)
         proxies = PROXIES[proxy_index]
         try:
-            r = requests.get(url, stream=False, verify=False,
-                             timeout=timeout, headers=headers,
-                             proxies=proxies)
+            with gevent.Timeout(config.TIMEOUT, False):
+                r = requests.get(url, stream=False, verify=False,
+                                 timeout=timeout, headers=headers,
+                                 proxies=proxies)
         except Exception, e:
             print e
             return status, content
     else:
         try:
-            r = requests.get(url, stream=False, verify=False,
-                             timeout=timeout, headers=headers)
+            with gevent.Timeout(config.TIMEOUT, False):
+                r = requests.get(url, stream=False, verify=False,
+                                 timeout=timeout, headers=headers)
         except Exception, e:
             print e
             return status, content
