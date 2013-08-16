@@ -114,6 +114,10 @@ def process(func, *args, **kwargs):
                          ext_content, html)
         except Exception, e:
             print e, type(url)
+        try:
+            map(db.push, filtered_urls)
+        except:
+            pass
         return filtered_urls
     return wrapper
 
