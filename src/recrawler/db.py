@@ -60,12 +60,11 @@ def submit_job(url, detail=True):
                                passwd=config.QDB_PASSWORD,
                                db=config.QDB_DB,
                                charset=config.QDB_CHARSET)
-        cursor = conn.cursor()
     except Exception, e:
         print e
-        cursor.close()
         conn.close()
         return False
+    cursor = conn.cursor()
     affected_rows = cursor.execute('select urlhash from jobs where urlhash'
                                    '= %s;', urlhash)
     if affected_rows:
@@ -104,12 +103,11 @@ def update_status(urlhash_status):
                                passwd=config.QDB_PASSWORD,
                                db=config.QDB_DB,
                                charset=config.QDB_CHARSET)
-        cursor = conn.cursor()
     except Exception, e:
         print e
-        cursor.close()
         conn.close()
         return False
+    cursor = conn.cursor()
     affected_rows = cursor.execute('select * from jobs where urlhash = %s '
                                    'and fetched = 1;', (urlhash,))
     if affected_rows:
@@ -130,6 +128,7 @@ def get_jobs(limit=100):
     r = redis.Redis(connection_pool=POOL)
     queues = r.keys('queue_*')
     jobs = filter(None, [r.rpop(queue) for queue in queues])
+    jobs = jobs + filter(None, [r.rpop(queue) for queue in queues])
     return jobs
 
 
@@ -163,12 +162,10 @@ def insert_db(site_id, language, url_hash, title, url, content, html):
                                passwd=config.DB_PASSWORD,
                                db=config.DB_DB,
                                charset=config.DB_CHARSET)
-        cursor = conn.cursor()
     except Exception, e:
         print e
-        cursor.close()
         conn.close()
-
+    cursor = conn.cursor()
     affected_rows = cursor.execute('select url_hash from news_site_html where'
                                    ' url_hash = %s;', url_hash)
     if affected_rows:
@@ -196,12 +193,11 @@ def get_site_info(domainhash):
                                passwd=config.DB_PASSWORD,
                                db=config.DB_DB,
                                charset=config.DB_CHARSET)
-        cursor = conn.cursor()
     except Exception, e:
         print e
-        cursor.close()
         conn.close()
 
+    cursor = conn.cursor()
     affected_rows = cursor.execute('select id, language from news_sites where'
                                    ' domainhash = %s;', domainhash)
     if affected_rows:
