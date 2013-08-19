@@ -10,6 +10,7 @@ import db
 import json
 import random
 import config
+import leveldb
 import requests
 import cityhash
 import encoding
@@ -23,6 +24,9 @@ from tldextracter import extract_rootdomain
 from rulers import RULERS
 
 
+DOMAINS = set(RULERS.keys())
+
+ldb = leveldb.LevelDB('./html')
 ext = Extractor()
 title_match = re.compile(r'<title>(.*?)</title>', re.IGNORECASE)
 url_match = re.compile(r'#.*', re.DOTALL)
@@ -74,6 +78,12 @@ def process(func, *args, **kwargs):
             return []
         u_content = content.encode('utf8')
         html = u_content
+        item = {"html": html, "url": url, "status": status, "urlhash": urlhash}
+        try:
+            ldb.Get(str(urlhash))
+        except Exception:
+            ldb.Put(str(urlhash), json.dumps(item))
+
         try:
             ext_content = ext.get_content(content, True, with_tag=False)
         except Exception, e:
@@ -89,13 +99,8 @@ def process(func, *args, **kwargs):
         filtered_urls = []
         for _url in urls:
             _url = url_match.sub('', _url)
-            for prefix in RULERS[rootdomain]["rulers"]:
-                try:
-                    if _url.startswith(prefix):
-                        filtered_urls.append(_url)
-                except Exception, e:
-                    #print e
-                    continue
+            if extract_rootdomain(_url) in DOMAINS:
+                filtered_urls.append(_url)
         domainhash = cityhash.CityHash64(rootdomain)
         site_id, language = db.get_site_info(domainhash)
         if not site_id or not language:
@@ -109,15 +114,28 @@ def process(func, *args, **kwargs):
         print 'site_id', site_id, 'languagle', language, 'urlhash', urlhash
         print 'title', title, 'url', url, 'ext_content', ext_content
         print 'urls', filtered_urls
+
+        try:
+            map(db.push, filtered_urls)
+        except Exception, e:
+            print e
+
+        useable = False
+        for prefix in RULERS[rootdomain]["rulers"]:
+            try:
+                if url.startswith(prefix):
+                    useable = True
+                    break
+            except Exception, e:
+                continue
+        if not useable:
+            return filtered_urls
         try:
             db.insert_db(site_id, language, urlhash, title, url,
                          ext_content, html)
         except Exception, e:
             print e, type(url)
-        try:
-            map(db.push, filtered_urls)
-        except:
-            pass
+
         return filtered_urls
     return wrapper
 
