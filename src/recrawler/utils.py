@@ -8,6 +8,7 @@ monkey.patch_all()
 import re
 import db
 import json
+import magic
 import random
 import config
 import urlnorm
@@ -94,7 +95,6 @@ def process(func, *args, **kwargs):
             except Exception, e:
                 print e
                 continue
-
             for prefix in RULERS[rootdomain]["rulers"]:
                 if _url.startswith(prefix):
                     filtered_urls.append(_url)
@@ -137,6 +137,9 @@ def handle(job, *args, **kwargs):
     url = url.encode('utf8')
     urlhash = cityhash.CityHash64(url)
     logger.info('%s|%s' % (url, status))
+    if magic.from_buffer(content[:1024], mime=True) != 'text/html':
+        print 'not html', url
+        return (url, urlhash, status, domain, content)
     _, content = encoding.html_to_unicode('', content)
     if status != 200:
         db.push(url, detail=False)

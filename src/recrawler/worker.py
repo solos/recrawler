@@ -15,7 +15,6 @@ import config
 from utils import handle
 from tldextracter import extract_rootdomain
 
-
 gpool = Pool(config.GPOOLSIZE)
 POOL = redis.ConnectionPool(host=config.RHOST,
                             port=config.RPORT,
