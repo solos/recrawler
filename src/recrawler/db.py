@@ -130,6 +130,7 @@ def get_jobs(limit=100):
     r = redis.Redis(connection_pool=POOL)
     queues = r.keys('queue_*')
     jobs = filter(None, [r.rpop(queue) for queue in queues])
+    jobs = jobs + filter(None, [r.rpop(queue) for queue in queues])
     return jobs
 
 

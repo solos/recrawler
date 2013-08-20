@@ -11,6 +11,7 @@ import json
 import magic
 import random
 import config
+import urlnorm
 import requests
 import cityhash
 import encoding
@@ -80,23 +81,22 @@ def process(func, *args, **kwargs):
         except Exception, e:
             print e
             ext_content = ''
-        urls = tree.xpath('//a')
-        urls = filter(lambda a: 'href' in a.attrib, tree.xpath('//a'))
-        urls = filter(None, urls)
-        urls = map(lambda a: a.attrib['href'], urls)
-        urls = filter(lambda url: not url.startswith('javascript:') and
-                      not url.startswith('mailto:') and not None, urls)
+        elems = tree.xpath('//a[@href]')
+        urls = map(lambda a: a.attrib['href'], elems)
         urls = list(set(urls))
         filtered_urls = []
         for _url in urls:
             _url = url_match.sub('', _url)
+            try:
+                _url = urlnorm.norm(_url)
+            except Exception, e:
+                print e
+                continue
             for prefix in RULERS[rootdomain]["rulers"]:
-                try:
-                    if _url.startswith(prefix):
-                        filtered_urls.append(_url)
-                except Exception, e:
-                    #print e
-                    continue
+                if _url.startswith(prefix):
+                    filtered_urls.append(_url)
+                    break
+
         domainhash = cityhash.CityHash64(rootdomain)
         site_id, language = db.get_site_info(domainhash)
         if not site_id or not language:
