@@ -12,7 +12,6 @@ import json
 import sched
 import redis
 import config
-import murmur
 from utils import handle
 from tldextracter import extract_rootdomain
 

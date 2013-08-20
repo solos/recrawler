@@ -64,7 +64,10 @@ def process(func, *args, **kwargs):
         url, urlhash, status, domain, content = func(*args, **kwargs)
         if not content or not isinstance(content, unicode):
             return []
-        url = url.encode('utf8')
+        try:
+            url = url.encode('utf8')
+        except Exception, e:
+            print e
         rootdomain = extract_rootdomain(url)
         if not rootdomain:
             return []
@@ -96,11 +99,9 @@ def process(func, *args, **kwargs):
                 if _url.startswith(prefix):
                     filtered_urls.append(_url)
                     break
-
         domainhash = cityhash.CityHash64(rootdomain)
         site_id, language = db.get_site_info(domainhash)
         if not site_id or not language:
-            print site_id, language
             pass
         try:
             title = title_match.findall(u_content)[0]
@@ -110,16 +111,18 @@ def process(func, *args, **kwargs):
         print 'site_id', site_id, 'languagle', language, 'urlhash', urlhash
         print 'title', title, 'url', url, 'ext_content', ext_content
         print 'urls', filtered_urls
+
+        try:
+            map(db.push, filtered_urls)
+        except Exception, e:
+            print e
+
         try:
             db.insert_db(site_id, language, urlhash, title, url,
                          ext_content, html)
         except Exception, e:
             print e, type(url)
-        try:
-            map(db.push, filtered_urls)
-        except Exception, e:
-            print e
-            pass
+
         return filtered_urls
     return wrapper
 
