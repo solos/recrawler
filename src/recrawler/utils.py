@@ -10,7 +10,7 @@ import db
 import json
 import random
 import config
-import leveldb
+import urlnorm
 import requests
 import cityhash
 import encoding
@@ -24,9 +24,6 @@ from tldextracter import extract_rootdomain
 from rulers import RULERS
 
 
-DOMAINS = set(RULERS.keys())
-
-ldb = leveldb.LevelDB('./html')
 ext = Extractor()
 title_match = re.compile(r'<title>(.*?)</title>', re.IGNORECASE)
 url_match = re.compile(r'#.*', re.DOTALL)
@@ -65,8 +62,11 @@ def process(func, *args, **kwargs):
     def wrapper(*args, **kwargs):
         url, urlhash, status, domain, content = func(*args, **kwargs)
         if not content or not isinstance(content, unicode):
-            return (url, urlhash, status, domain, content)
-        url = url.encode('utf8')
+            return []
+        try:
+            url = url.encode('utf8')
+        except Exception, e:
+            print e
         rootdomain = extract_rootdomain(url)
         if not rootdomain:
             return []
@@ -78,33 +78,30 @@ def process(func, *args, **kwargs):
             return []
         u_content = content.encode('utf8')
         html = u_content
-        item = {"html": html, "url": url, "status": status, "urlhash": urlhash}
-        try:
-            ldb.Get(str(urlhash))
-        except Exception:
-            ldb.Put(str(urlhash), json.dumps(item))
-
         try:
             ext_content = ext.get_content(content, True, with_tag=False)
         except Exception, e:
             print e
             ext_content = ''
-        urls = tree.xpath('//a')
-        urls = filter(lambda a: 'href' in a.attrib, tree.xpath('//a'))
-        urls = filter(None, urls)
-        urls = map(lambda a: a.attrib['href'], urls)
-        urls = filter(lambda url: not url.startswith('javascript:') and
-                      not url.startswith('mailto:') and not None, urls)
+        elems = tree.xpath('//a[@href]')
+        urls = map(lambda a: a.attrib['href'], elems)
         urls = list(set(urls))
         filtered_urls = []
         for _url in urls:
             _url = url_match.sub('', _url)
-            if extract_rootdomain(_url) in DOMAINS:
-                filtered_urls.append(_url)
+            try:
+                _url = urlnorm.norm(_url)
+            except Exception, e:
+                print e
+                continue
+
+            for prefix in RULERS[rootdomain]["rulers"]:
+                if _url.startswith(prefix):
+                    filtered_urls.append(_url)
+                    break
         domainhash = cityhash.CityHash64(rootdomain)
         site_id, language = db.get_site_info(domainhash)
         if not site_id or not language:
-            print site_id, language
             pass
         try:
             title = title_match.findall(u_content)[0]
@@ -120,16 +117,6 @@ def process(func, *args, **kwargs):
         except Exception, e:
             print e
 
-        useable = False
-        for prefix in RULERS[rootdomain]["rulers"]:
-            try:
-                if url.startswith(prefix):
-                    useable = True
-                    break
-            except Exception, e:
-                continue
-        if not useable:
-            return filtered_urls
         try:
             db.insert_db(site_id, language, urlhash, title, url,
                          ext_content, html)
