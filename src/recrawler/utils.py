@@ -1,26 +1,54 @@
 #!/usr/bin/env python
 #coding=utf-8
 
+import gevent
 from gevent import monkey
 monkey.patch_all()
 
 import re
 import db
-import json
+import ujson as json
+import magic
 import random
 import config
+import urlnorm
 import requests
 import cityhash
+import encoding
 import lxml.html
+import lxml.html.clean
+import tldextracter
 from logger import logger
-from proxies import PROXIES
 from useragents import USER_AGENTS
-from tldextracter import extract_domain
-from tldextracter import extract_rootdomain
-from htmlcontent import Extractor
+from rulers import RULERS
 
-ext = Extractor()
+
 title_match = re.compile(r'<title>(.*?)</title>', re.IGNORECASE)
+url_match = re.compile(r'#.*', re.DOTALL)
+
+cleaner = lxml.html.clean.Cleaner(
+    scripts=True,
+    javascript=True,
+    comments=True,
+    style=True,
+    links=True,
+    meta=True,
+    page_structure=True,
+    processing_instructions=True,
+    embedded=True,
+    frames=True,
+    forms=True,
+    annoying_tags=True,
+    remove_tags=None,
+    allow_tags=None,
+    kill_tags=None,
+    remove_unknown_tags=True,
+    safe_attrs_only=True,
+    safe_attrs=frozenset(['abbr', 'accept', 'accept-charset']),
+    add_nofollow=False,
+    host_whitelist=(),
+    whitelist_tags=set(['embed', 'iframe']),
+    _tag_link_attrs={'a': 'href', 'applet': ['code', 'object']})
 
 
 def fetch(url, use_proxy=True, timeout=None, headers={}):
@@ -30,89 +58,112 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
     useragent = random.randint(0, len(USER_AGENTS)-1)
     headers["user-agent"] = useragent
     if use_proxy:
-        proxy_index = random.randint(0, len(PROXIES)-1)
-        proxies = PROXIES[proxy_index]
+        proxies = db.get_proxies()
         try:
-            r = requests.get(url, stream=False, verify=False,
-                             timeout=timeout, headers=headers,
-                             proxies=proxies)
+            with gevent.Timeout(config.TIMEOUT, Exception):
+                r = requests.get(url, stream=False, verify=False,
+                                 timeout=timeout, headers=headers,
+                                 proxies=proxies)
         except Exception, e:
             print e
             return status, content
     else:
         try:
-            r = requests.get(url, stream=False, verify=False,
-                             timeout=timeout, headers=headers)
+            with gevent.Timeout(config.TIMEOUT, Exception):
+                r = requests.get(url, stream=False, verify=False,
+                                 timeout=timeout, headers=headers)
         except Exception, e:
             print e
             return status, content
-    return r.status_code, r.text
+    return r.status_code, r.content
 
 
-def process(func):
+def process(func, *args, **kwargs):
 
     def wrapper(*args, **kwargs):
         url, urlhash, status, domain, content = func(*args, **kwargs)
-        if not content:
-            return (url, urlhash, status, domain, content)
-        url = url.encode('utf8')
-        content = content.encode('utf8')
-        tree = lxml.html.fromstring(content)
-        html = content
-        ext_content = ext.get_content(content, True, with_tag=False)
-        urls = map(lambda a: a.attrib['href'] if
-                   a.attrib['href'].startswith('http') and
-                   domain in a.attrib['href'] or
-                   a.attrib['href'].startswith('/') else None,
-                   filter(lambda a: 'href' in a.attrib, tree.xpath('//a')))
-        urls = filter(None, urls)
-        urls = map(lambda uri: 'http://%s%s' % (domain, uri) if
-                   uri.startswith('/') else uri,
-                   urls)
-        urls = list(set(urls))
-        rootdomain = extract_rootdomain(url)
+        if not content or not isinstance(content, unicode):
+            return []
+        try:
+            url = url.encode('utf8')
+        except Exception, e:
+            print e
+        rootdomain = tldextracter.extract_rootdomain(url)
         if not rootdomain:
-            return (url, urlhash, status, domain, content)
-        domainhash = cityhash.CityHash64(rootdomain)
-        site_id, language = db.get_site_info(domainhash)
-        if not site_id or not language:
-            pass
+            return []
+        try:
+            absolute_content = lxml.html.make_links_absolute(content, url)
+            tree = lxml.html.fromstring(absolute_content)
+        except Exception, e:
+            print e
+            return []
+
+        #extract content
+        cleaned = cleaner.clean_html(content)
+        raw_text = lxml.html.fromstring(cleaned).text_content()
+
         try:
             title = title_match.findall(content)[0]
         except Exception, e:
             print e
             title = ''
-        print 'site_id', site_id, 'languagle', language, 'urlhash', urlhash
-        print 'title', title, 'url', url, 'ext_content', ext_content
-        print 'urls', urls
+
+        print 'raw', raw_text, 'title', title
+        '''
         try:
-            db.insert_db(site_id, language, urlhash, title, url,
-                         ext_content, html)
+            db.insert(urlhash, html, title, raw_text)
+        except Exception, e:
+            print e, type(url)
+        '''
+
+        #extract links
+        elems = tree.xpath('//a[@href]')
+        urls = map(lambda a: a.attrib['href'], elems)
+        urls = list(set(urls))
+        filtered_urls = []
+        for _url in urls:
+            _url = url_match.sub('', _url)
+            try:
+                _url = urlnorm.norm(_url)
+            except Exception, e:
+                print e
+                continue
+            for prefix in RULERS[rootdomain]["rulers"]:
+                if _url.startswith(prefix):
+                    filtered_urls.append(_url)
+                    break
+        try:
+            map(db.push, filtered_urls)
         except Exception, e:
             print e
-        try:
-            map(db.submit_job, urls)
-        except Exception, e:
-            print e
-        return (url, urlhash, status, domain, content)
+
+        return filtered_urls
     return wrapper
 
 
 @process
-def handle(job):
+def handle(job, *args, **kwargs):
+    print 'handle', args, kwargs
     task = json.loads(job)
     url = task["url"]
-    domain = extract_domain(url)
-    status, content = fetch(url, use_proxy=True)
-    url = url.encode('utf8')
-    urlhash = cityhash.CityHash64(url)
+    domain = tldextracter.extract_domain(url)
+    status, content = fetch(url, use_proxy=False)
+    try:
+        url = url.encode('utf8')
+        urlhash = cityhash.CityHash64(url)
+    except:
+        return (url, None, status, domain, content)
     logger.info('%s|%s' % (url, status))
+    if magic.from_buffer(content, mime=True) != 'text/html':
+        return (url, urlhash, status, domain, content)
+    _, content = encoding.html_to_unicode('', content)
     if status != 200:
         db.push(url, detail=False)
         return (url, urlhash, status, domain, content)
     return (url, urlhash, status, domain, content)
 
+
 if __name__ == '__main__':
     #pass
-    job = {"url": 'http://www.baidu.com'}
+    job = {"url": "http://whyfiles.org"}
     handle(json.dumps(job))

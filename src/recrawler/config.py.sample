@@ -15,10 +15,13 @@ DB_HOST = 'localhost'
 DB_DB = ''
 DB_CHARSET = 'UTF8'
 
+QUEUE = 'queue'
+QUEUE_FORMAT = 'queue_%s'
+
 #logger config
-LOG_NAME = 'news_site'
+LOG_NAME = 'en_news_site'
 BASIC_LOG_PATH = './log/'
-LOG_FILENAME = 'news_site'
+LOG_FILENAME = 'en_news_site'
 
 #redis config
 RHOST = '127.0.0.1'

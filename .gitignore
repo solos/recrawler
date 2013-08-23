@@ -1,3 +1,5 @@
+config.py
+/docs/build/
 *.py[cod]
 
 # C extensions

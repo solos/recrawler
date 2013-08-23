@@ -1491,7 +1491,8 @@ TLDS = set([
     "org.zw",
     "gov.zw",
     "ac.zw",
-    "co.uk"
+    "co.uk",
+    "edu.au",
 ])
 
 
