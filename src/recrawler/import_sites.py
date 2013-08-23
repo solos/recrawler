@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #coding=utf-8
 
-import json
 import config
 import cityhash
 import PySQLPool
@@ -53,8 +52,9 @@ def insert_site(name, language, url):
 
 
 if __name__ == '__main__':
-    sites = json.loads(open('sites.json', 'r').read())
-    for site in sites:
+    from rulers import RULERS
+    for ruler in RULERS:
+        site = RULERS[ruler]
         name = site["name"]
         url = site["url"]
         language = site["language"]
