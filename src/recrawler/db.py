@@ -47,7 +47,7 @@ def filter_recent(r, jobs):
 
 def get_jobs(limit=100):
     r = redis.Redis(connection_pool=POOL)
-    queues = r.keys('queue_*')
+    queues = r.keys(config.QUEUE_FORMAT % '*')
     jobs = []
     for i in xrange(config.POP_TIMES):
         jobs = jobs + [r.rpop(queue) for queue in queues]
