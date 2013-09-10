@@ -28,6 +28,7 @@ def filter_recent(r, jobs):
         try:
             task = json.loads(job)
             url = task['url']
+            del task
             rootdomain = tldextracter.extract_rootdomain(url)
         except:
             r.lpush(config.QUEUE, job)
@@ -83,6 +84,7 @@ def push(url, detail=True):
         r.rpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
     else:
         r.lpush(config.QUEUE_FORMAT % rootdomain, json.dumps(job))
+    del job
     return True
 
 
@@ -106,6 +108,7 @@ def qpush(url, detail=True):
         r.rpush(config.QUEUE, json.dumps(job))
     else:
         r.lpush(config.QUEUE, json.dumps(job))
+    del job
     return True
 
 
@@ -139,5 +142,4 @@ def get_random_useragent():
 if __name__ == '__main__':
     from rulers import RULERS
     urls = [RULERS[domain]["url"] for domain in RULERS]
-    #map(submit_job, urls)
-    print get_proxy()
+    map(qpush, urls)

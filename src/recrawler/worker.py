@@ -16,7 +16,7 @@ gpool = Pool(config.GPOOLSIZE)
 
 
 def work():
-    jobs = db.get_jobs()
+    jobs = db.get_queue()
     print jobs
     gpool.map(handle, jobs)
 

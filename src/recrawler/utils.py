@@ -58,7 +58,10 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
     useragent = config.USER_AGENT or db.get_random_useragent()
     headers["user-agent"] = useragent
     if use_proxy:
-        proxies = db.get_proxies()
+        proxies = {}
+        proxy = db.get_random_proxy()
+        if proxy:
+            proxies = {'http': proxy}
         try:
             with gevent.Timeout(config.TIMEOUT, Exception):
                 r = requests.get(url, stream=False, verify=False,
@@ -133,7 +136,7 @@ def process(func, *args, **kwargs):
                     filtered_urls.append(_url)
                     break
         try:
-            map(db.push, filtered_urls)
+            map(db.qpush, filtered_urls)
         except Exception, e:
             print e
 
@@ -146,6 +149,7 @@ def handle(job, *args, **kwargs):
     print 'handle', args, kwargs
     task = json.loads(job)
     url = task["url"]
+    del task
     domain = tldextracter.extract_domain(url)
     status, content = fetch(url, use_proxy=False)
     try:
