@@ -7,9 +7,7 @@ monkey.patch_all()
 
 import re
 import db
-import ujson as json
 import magic
-import random
 import config
 import urlnorm
 import requests
@@ -19,9 +17,11 @@ import lxml.html
 import lxml.html.clean
 import tldextracter
 from logger import logger
-from useragents import USER_AGENTS
 from rulers import RULERS
-
+try:
+    import ujson as json
+except:
+    import json
 
 title_match = re.compile(r'<title>(.*?)</title>', re.IGNORECASE)
 url_match = re.compile(r'#.*', re.DOTALL)
@@ -55,10 +55,13 @@ def fetch(url, use_proxy=True, timeout=None, headers={}):
     status, content = 408, ''
     timeout = timeout or config.TIMEOUT
     headers = headers or config.HEADERS
-    useragent = random.randint(0, len(USER_AGENTS)-1)
+    useragent = config.USER_AGENT or db.get_random_useragent()
     headers["user-agent"] = useragent
     if use_proxy:
-        proxies = db.get_proxies()
+        proxies = {}
+        proxy = db.get_random_proxy()
+        if proxy:
+            proxies = {'http': proxy}
         try:
             with gevent.Timeout(config.TIMEOUT, Exception):
                 r = requests.get(url, stream=False, verify=False,
@@ -133,7 +136,7 @@ def process(func, *args, **kwargs):
                     filtered_urls.append(_url)
                     break
         try:
-            map(db.push, filtered_urls)
+            map(db.qpush, filtered_urls)
         except Exception, e:
             print e
 
@@ -146,6 +149,7 @@ def handle(job, *args, **kwargs):
     print 'handle', args, kwargs
     task = json.loads(job)
     url = task["url"]
+    del task
     domain = tldextracter.extract_domain(url)
     status, content = fetch(url, use_proxy=False)
     try:
@@ -156,7 +160,10 @@ def handle(job, *args, **kwargs):
     logger.info('%s|%s' % (url, status))
     if magic.from_buffer(content, mime=True) != 'text/html':
         return (url, urlhash, status, domain, content)
-    _, content = encoding.html_to_unicode('', content)
+    try:
+        _, content = encoding.html_to_unicode('', content)
+    except Exception, e:
+        print e
     if status != 200:
         db.push(url, detail=False)
         return (url, urlhash, status, domain, content)
