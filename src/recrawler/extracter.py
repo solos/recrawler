@@ -3,11 +3,12 @@
 
 import re
 import urlnorm
+import encoding
 import lxml.html
 import lxml.html.clean
 
 
-url_match = re.compile(r'#.*', re.DOTALL)
+url_match = re.compile(r'#.*$', re.DOTALL)
 
 cleaner = lxml.html.clean.Cleaner(
     scripts=True,
@@ -37,6 +38,7 @@ cleaner = lxml.html.clean.Cleaner(
 def extract_links(url, source):
     filtered_urls = []
     if not source or not isinstance(source, unicode):
+        print 'not unicode'
         return filtered_urls
     if isinstance(url, unicode):
         url = url.encode('utf8')
@@ -58,7 +60,7 @@ def extract_links(url, source):
         except Exception, e:
             print e
             continue
-            filtered_urls.append(_url)
+        filtered_urls.append(_url)
     filtered_urls = list(set(filtered_urls))
     return filtered_urls
 
@@ -72,3 +74,12 @@ def extract_content(url, source):
 
 def extract_data(url, source):
     pass
+
+
+if __name__ == '__main__':
+    import fetcher
+    url = 'http://www.baidu.com'
+    status, content = fetcher.fetch(url)
+    _, ucontent = encoding.html_to_unicode('', content)
+    print extract_links(url, ucontent)
+    print extract_content(url, ucontent)

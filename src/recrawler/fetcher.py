@@ -38,3 +38,7 @@ def fetch(url, use_proxy=True, timeout=None, headers={}, **kw):
             print e
             return status, content
     return r.status_code, r.content
+
+if __name__ == '__main__':
+    url = 'http://www.baidu.com'
+    print fetch(url)
