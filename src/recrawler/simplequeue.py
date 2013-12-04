@@ -22,13 +22,11 @@ class Queue(object):
         self.q.appendleft(jsonjob)
         return True
 
-    def rpushmany(self, *jsonjob):
-        self.q.append(jsonjob)
-        return True
+    def rpushmany(self, *jsonjobs):
+        pass
 
     def lpushmany(self, *jsonjob):
-        self.q.appendleft(*jsonjob)
-        return True
+        pass
 
     def rpop(self):
         try:
@@ -52,6 +50,11 @@ class Queue(object):
         except IndexError:
             job = None
         return job
+
+    def getall(self):
+        length = len(self.q)
+        jobs = [self.q[i] for i in xrange(length)]
+        return jobs
 
     def pack(self, url, **kw):
         job = {'url': url}.update(kw)
