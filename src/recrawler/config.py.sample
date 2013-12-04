@@ -9,9 +9,9 @@ DB_DB = ''
 DB_CHARSET = 'UTF8'
 
 #logger config
-LOG_NAME = 'en_news_site'
+LOG_NAME = 'recrawler'
 BASIC_LOG_PATH = './log/'
-LOG_FILENAME = 'en_news_site'
+LOG_FILENAME = 'recrawler'
 
 #redis config
 RHOST = '127.0.0.1'
@@ -33,3 +33,6 @@ INTERVAL = 1
 
 #proxy config
 PROXY_EXPIRETIME = 10
+
+
+IGNORE_SUFFIXES = set(['.jpg', '.jpeg', '.png', '.gif', '.pdf'])
