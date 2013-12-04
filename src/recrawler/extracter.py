@@ -71,3 +71,12 @@ def extract_data_by_xpath(url, source, xpath):
 
 def extract_data_by_regex(url, source, regex):
     pass
+
+
+if __name__ == '__main__':
+    import fetcher
+    url = 'http://www.baidu.com'
+    status, content = fetcher.fetch(url)
+    _, ucontent = encoding.html_to_unicode('', content)
+    print extract_links(url, ucontent)
+    print extract_content(url, ucontent)
