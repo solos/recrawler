@@ -2,13 +2,9 @@
 #coding=utf-8
 
 import re
-import urlnorm
-import encoding
 import lxml.html
 import lxml.html.clean
 
-
-url_match = re.compile(r'#.*$', re.DOTALL)
 
 cleaner = lxml.html.clean.Cleaner(
     scripts=True,
@@ -35,11 +31,10 @@ cleaner = lxml.html.clean.Cleaner(
     _tag_link_attrs={'a': 'href', 'applet': ['code', 'object']})
 
 
-def extract_links(url, source):
-    filtered_urls = []
+def extract_links(url, source, xpath='//a[@href]'):
+    urls = []
     if not source or not isinstance(source, unicode):
-        print 'not unicode'
-        return filtered_urls
+        return urls
     if isinstance(url, unicode):
         url = url.encode('utf8')
     try:
@@ -47,22 +42,16 @@ def extract_links(url, source):
         tree = lxml.html.fromstring(absolute_content)
     except Exception, e:
         print e
-        return filtered_urls
-
+        return urls
     #extract links
-    elems = tree.xpath('//a[@href]')
+    elems = tree.xpath(xpath)
     urls = map(lambda a: a.attrib['href'], elems)
-    urls = list(set(urls))
-    for _url in urls:
-        _url = url_match.sub('', _url)
-        try:
-            _url = urlnorm.norm(_url)
-        except Exception, e:
-            print e
-            continue
-        filtered_urls.append(_url)
-    filtered_urls = list(set(filtered_urls))
-    return filtered_urls
+    return list(set(urls))
+
+
+def extract_links_by_regex(url, source, regex='''(?P<url>http://.*?)["']'''):
+    pattern = re.compile(regex)
+    return list(set(pattern.findall(source)))
 
 
 def extract_content(url, source):
@@ -72,7 +61,15 @@ def extract_content(url, source):
     return content
 
 
-def extract_data(url, source):
+def extract_data(url, source, xpath):
+    pass
+
+
+def extract_data_by_xpath(url, source, xpath):
+    pass
+
+
+def extract_data_by_regex(url, source, regex):
     pass
 
 

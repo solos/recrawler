@@ -53,11 +53,6 @@ class Queue(object):
             job = None
         return job
 
-    def getall(self):
-        length = len(self.q)
-        jobs = [self.q[i] for i in xrange(length)]
-        return jobs
-
     def pack(self, url, **kw):
         job = {'url': url}.update(kw)
         return job

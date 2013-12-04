@@ -11,21 +11,16 @@ import requests
 s = requests.Session()
 
 
-def fetch(url, use_proxy=True, timeout=None, headers={}, **kw):
+def fetch(url, timeout=None, headers={}, proxy={}, user_agent=None, **kw):
     status, content = 408, ''
     timeout = timeout or config.TIMEOUT
     headers = headers or config.HEADERS
-    useragent = config.USER_AGENT
-    headers["user-agent"] = useragent
-    if use_proxy:
-        proxies = {}
-        proxy = ''
-        if proxy:
-            proxies = {'http': proxy}
+    headers["user-agent"] = user_agent or config.USER_AGENT
+    if proxy:
         try:
             with gevent.Timeout(config.TIMEOUT, Exception):
                 r = s.get(url, stream=False, verify=False, timeout=timeout,
-                          headers=headers, proxies=proxies)
+                          headers=headers, proxies=proxy)
         except Exception, e:
             print e
             return status, content
