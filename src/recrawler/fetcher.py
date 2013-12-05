@@ -11,7 +11,8 @@ import requests
 s = requests.Session()
 
 
-def fetch(url, timeout=None, headers={}, proxy={}, user_agent=None, **kw):
+def fetch(url, timeout=None, headers={}, cookies={}, proxy={},
+          stream=False, verify=False, user_agent=None, **kw):
     status, content = 408, ''
     timeout = timeout or config.TIMEOUT
     headers = headers or config.HEADERS
@@ -19,16 +20,17 @@ def fetch(url, timeout=None, headers={}, proxy={}, user_agent=None, **kw):
     if proxy:
         try:
             with gevent.Timeout(config.TIMEOUT, Exception):
-                r = s.get(url, stream=False, verify=False, timeout=timeout,
-                          headers=headers, proxies=proxy)
+                r = requests.get(url, timeout=timeout, headers=headers,
+                                 cookies=cookies, stream=stream,
+                                 verify=verify, proxies=proxy)
         except Exception, e:
             print e
             return status, content
     else:
         try:
             with gevent.Timeout(config.TIMEOUT, Exception):
-                r = s.get(url, stream=False, verify=False, timeout=timeout,
-                          headers=headers)
+                r = s.get(url, timeout=timeout, headers=headers,
+                          cookies=cookies, stream=stream, verify=verify)
         except Exception, e:
             print e
             return status, content
