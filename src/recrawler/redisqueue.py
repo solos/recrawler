@@ -57,6 +57,24 @@ class RedisQueue(object):
         jobs = [self.r.rpop(queue) for i in xrange(limit or config.POP_TIMES)]
         return filter(None, jobs)
 
+    def get_expire_proxy(self):
+        proxy = self.r.srandmember('proxies')
+        while self.r.exists('proxy_%s' % proxy):
+            proxy = self.r.srandmember('proxies')
+        self.r.expire('proxy_%s' % proxy, config.PROXY_EXPIRETIME)
+        return proxy
+
+    def get_random_proxy(self):
+        proxy = self.r.srandmember('proxies')
+        return proxy
+
+    def get_proxy(self):
+        proxy = self.r.get('proxy')
+        return proxy
+
+    def get_random_useragent(self):
+        useragent = self.r.srandmember('useragents')
+        return useragent
 
 if __name__ == '__main__':
     from rulers import RULERS
