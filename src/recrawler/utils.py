@@ -7,6 +7,11 @@ import magic
 from rulers import RULERS
 
 
+def generate_urls(filename):
+    for line in file(filename):
+        yield line.strip()
+
+
 def check_mime(source):
     segment = source[:(len(source), 1024)[len(source) > 1024]]
     return magic.from_buffer(segment, mime=True) == 'text/html'
