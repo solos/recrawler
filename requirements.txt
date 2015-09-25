@@ -4,6 +4,10 @@ gevent
 murmur
 urlnorm
 requests
-cityhash
+git+git://github.com/Amper/cityhash.git#egg=cityhash
 mysql-python
 python-magic
+nose
+mock
+ipython
+ipdb
