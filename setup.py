@@ -1,6 +1,7 @@
 
 #!/usr/bin/python
 #coding=utf-8
+import sys
 sys.path.append('./src')
 from distutils.core import setup
 from recrawler import __version__
