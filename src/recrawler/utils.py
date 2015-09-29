@@ -52,7 +52,7 @@ def suffix_filter(urls):
         for suffix in config.IGNORE_SUFFIXES:
             if _url.endswith(suffix):
                 continue
-        filtered_urls.append(_url)
+            filtered_urls.append(_url)
     return filtered_urls
 
 if __name__ == '__main__':
