@@ -33,7 +33,7 @@ cleaner = lxml.html.clean.Cleaner(
 
 def extract_links(url, source, xpath='//a[@href]'):
     urls = []
-    if not source or not isinstance(source, unicode):
+    if not isinstance(source, unicode):
         return urls
     if isinstance(url, unicode):
         url = url.encode('utf8')
@@ -49,12 +49,12 @@ def extract_links(url, source, xpath='//a[@href]'):
     return list(set(urls))
 
 
-def extract_links_by_regex(url, source, regex='''(?P<url>http://.*?)["']'''):
+def extract_links_by_regex(source, regex='''(?P<url>http://.*?)["']'''):
     pattern = re.compile(regex)
     return list(set(pattern.findall(source)))
 
 
-def extract_content(url, source):
+def extract_content(source):
 
     cleaned = cleaner.clean_html(source)
     content = lxml.html.fromstring(cleaned).text_content()
@@ -79,4 +79,4 @@ if __name__ == '__main__':
     status, content = fetcher.fetch(url)
     _, ucontent = encoding.html_to_unicode('', content)
     print extract_links(url, ucontent)
-    print extract_content(url, ucontent)
+    print extract_content(ucontent)
