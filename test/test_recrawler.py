@@ -70,8 +70,26 @@ class UtilsTests(unittest.TestCase):
 
     def test_url_clean(self):
         from recrawler.utils import url_clean
-        result = url_clean(["http://www.hulahoop.org", "http://www.hulahoop.com"])
-        self.assertEqual(result, ['http://www.hulahoop.org'])
+        result = url_clean("http://www.hulahoop.org", ["http://www.hulahoop.org", "http://www.hulahoop.com"])
+        self.assertEqual(result, ['', 'http://www.hulahoop.com'])
+
+
+class TLDExtracterTests(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_extract(self):
+        from recrawler.tldextracter import extract
+        result = extract("hulahoop.edu.au")
+        self.assertEqual(result, ('', 'hulahoop.edu.au'))
+        result_none = extract("hulahoop.xx.xx")
+        map(self.assertIsNone, result_none)
+        # self.assertIsNone(result_none)
+
+    def test_extract_domain(self):
+        from recrawler.tldextracter import extract_domain
+        self.assertEqual('www.google.com',
+                         extract_domain("http://www.google.com/hulahoop"))
 
 
 def suite():
