@@ -28,6 +28,7 @@ class ExtracterTests(unittest.TestCase):
     def test_extract_links_by_regex(self):
         content = extract_links_by_regex(
             "www.google.com", "http://www.google.com")
+        # import ipdb; ipdb.set_trace()
 
     def test_extract_links(self):
         urls = extract_links('google.com', 'source')
@@ -70,9 +71,49 @@ class UtilsTests(unittest.TestCase):
 
     def test_url_clean(self):
         from recrawler.utils import url_clean
-        result = url_clean(["http://www.hulahoop.org", "http://www.hulahoop.com"])
-        self.assertEqual(result, ['http://www.hulahoop.org'])
+        result = url_clean("http://www.hulahoop.org", ["http://www.hulahoop.org", "http://www.hulahoop.com"])
+        self.assertEqual(result, ['', 'http://www.hulahoop.com'])
 
+<<<<<<< HEAD
+class SimpleQueueTests(unittest.TestCase):
+
+    def setUp(self):
+        self.config = MagicMock()
+        modules = {'config': self.config}
+        self.module_patcher = patch.dict('sys.modules', modules)
+        self.module_patcher.start()
+        from recrawler.simplequeue import Queue
+        self.simplequeue = Queue()
+
+    def tearDown(self):
+        self.module_patcher.stop()
+
+    def test_getall(self):
+        self.simplequeue.q = [1, 2, 3]
+        result = self.simplequeue.getall()
+        self.assertEqual(result, [1, 2, 3])
+
+    def test_pack(self):
+        result = self.simplequeue.pack('http://hulahoop.com', test='hoho')
+        self.assertEqual(result, {'url': 'http://hulahoop.com',
+                                  'test': 'hoho'})
+
+class TLDExtracterTests(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_extract(self):
+        from recrawler.tldextracter import extract
+        result = extract("hulahoop.edu.au")
+        self.assertEqual(result, ('', 'hulahoop.edu.au'))
+        result_none = extract("hulahoop.xx.xx")
+        map(self.assertIsNone, result_none)
+        # self.assertIsNone(result_none)
+
+    def test_extract_domain(self):
+        from recrawler.tldextracter import extract_domain
+        self.assertEqual('www.google.com',
+                         extract_domain("http://www.google.com/hulahoop"))
 
 def suite():
     suite = unittest.TestSuite()
