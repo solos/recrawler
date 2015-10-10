@@ -74,7 +74,7 @@ class UtilsTests(unittest.TestCase):
         result = url_clean("http://www.hulahoop.org", ["http://www.hulahoop.org", "http://www.hulahoop.com"])
         self.assertEqual(result, ['', 'http://www.hulahoop.com'])
 
-<<<<<<< HEAD
+
 class SimpleQueueTests(unittest.TestCase):
 
     def setUp(self):
@@ -98,7 +98,9 @@ class SimpleQueueTests(unittest.TestCase):
         self.assertEqual(result, {'url': 'http://hulahoop.com',
                                   'test': 'hoho'})
 
+
 class TLDExtracterTests(unittest.TestCase):
+
     def setUp(self):
         pass
 
