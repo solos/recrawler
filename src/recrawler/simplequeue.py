@@ -57,7 +57,8 @@ class Queue(object):
         return jobs
 
     def pack(self, url, **kw):
-        job = {'url': url}.update(kw)
+        job = {'url': url}
+        job.update(kw)
         return job
 
 
